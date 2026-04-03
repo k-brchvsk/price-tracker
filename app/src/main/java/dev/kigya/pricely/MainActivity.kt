@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             PricelyTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    containerColor = AppTheme.colors.background
+                    containerColor = AppTheme.colors.background,
                 ) { innerPadding ->
                     Greeting(
                         name = "Android",
@@ -37,6 +37,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
+        style = AppTheme.typography.headingLarge,
         color = AppTheme.colors.textPrimary,
         modifier = modifier
     )

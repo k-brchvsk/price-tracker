@@ -1,6 +1,7 @@
 package dev.kigya.pricely.core.designsystem.color
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 @Immutable
@@ -85,3 +86,7 @@ fun pricelyColorScheme(
         dark = colors.greyscale0,
     ).resolve(isDark),
 )
+
+val LocalPricelyColors = staticCompositionLocalOf<PricelyColorScheme> {
+    error("No PricelyColorScheme provided")
+}

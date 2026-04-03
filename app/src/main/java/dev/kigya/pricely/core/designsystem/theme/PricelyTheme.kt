@@ -5,6 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import dev.kigya.pricely.core.designsystem.color.LocalPricelyColors
 import dev.kigya.pricely.core.designsystem.color.pricelyColorScheme
+import dev.kigya.pricely.core.designsystem.dimension.LocalDimens
+import dev.kigya.pricely.core.designsystem.dimension.PricelyDimens
+import dev.kigya.pricely.core.designsystem.shape.LocalShapes
+import dev.kigya.pricely.core.designsystem.shape.PricelyShapes
+import dev.kigya.pricely.core.designsystem.typography.LocalTypography
+import dev.kigya.pricely.core.designsystem.typography.PricelyTypography
 
 @Composable
 fun PricelyTheme(
@@ -14,7 +20,10 @@ fun PricelyTheme(
     val colors = pricelyColorScheme(isDark)
 
     CompositionLocalProvider(
-        LocalPricelyColors provides colors
+        LocalPricelyColors provides colors,
+        LocalTypography provides PricelyTypography,
+        LocalDimens provides PricelyDimens,
+        LocalShapes provides PricelyShapes,
     ) {
         content()
     }
