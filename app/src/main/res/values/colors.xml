@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="splash_background">#FFFFFF</color>
+    <color name="launcher_foreground">#3E52C1</color>
 </resources>

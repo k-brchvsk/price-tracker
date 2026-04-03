@@ -8,16 +8,16 @@
         android:translateX="34"
         android:translateY="34">
         <path
-            android:fillColor="#3E52C1"
+            android:fillColor="@color/launcher_foreground"
             android:pathData="M11.207,32.16L31.684,11.684L28.316,8.316L7.84,28.793L11.207,32.16Z" />
         <path
-            android:fillColor="#3E52C1"
+            android:fillColor="@color/launcher_foreground"
             android:pathData="M19.303,11.684L11.207,19.779L7.84,16.412L15.935,8.316L19.303,11.684Z" />
         <path
-            android:fillColor="#3E52C1"
+            android:fillColor="@color/launcher_foreground"
             android:pathData="M23.588,32.16L31.684,24.065L28.316,20.697L20.221,28.793L23.588,32.16Z" />
         <path
-            android:fillColor="#3E52C1"
+            android:fillColor="@color/launcher_foreground"
             android:fillType="evenOdd"
             android:pathData="M0,40V0H40V40H0ZM4.762,4.762H35.238V35.238H4.762V4.762Z" />
     </group>
