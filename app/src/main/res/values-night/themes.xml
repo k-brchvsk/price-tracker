@@ -3,7 +3,7 @@
 
     <style name="Theme.PriceTracker" parent="android:Theme.Material.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.PriceTracker.Splash" parent="Theme.PriceTracker">
