@@ -10,16 +10,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import dev.kigya.pricely.ui.theme.PriceTrackerTheme
+import dev.kigya.pricely.core.designsystem.theme.AppTheme
+import dev.kigya.pricely.core.designsystem.theme.PricelyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PriceTrackerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            PricelyTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = AppTheme.colors.background
+                ) { innerPadding ->
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
@@ -34,14 +37,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
+        color = AppTheme.colors.textPrimary,
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PriceTrackerTheme {
-        Greeting("Android")
-    }
 }
