@@ -29,7 +29,7 @@ data object PricelyTypography {
         fontFamily = fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        lineHeight = 27.sp
+        lineHeight = 28.sp
     )
 
     val bodyLarge = TextStyle(
