@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PriceTracker" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.PriceTracker.Splash" parent="Theme.PriceTracker">
+        <item name="android:windowBackground">@color/splash_background</item>
+    </style>
+</resources>
