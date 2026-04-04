@@ -1,5 +1,6 @@
 package dev.kigya.pricely.core.designsystem.shape
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -10,6 +11,7 @@ data object PricelyShapes {
     val small = RoundedCornerShape(8.dp)
     val medium = RoundedCornerShape(12.dp)
     val large = RoundedCornerShape(16.dp)
+    val circle = CircleShape
 }
 
 val LocalShapes = staticCompositionLocalOf<PricelyShapes> {

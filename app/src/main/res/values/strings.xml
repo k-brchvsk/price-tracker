@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">PriceTracker</string>
+
+    <!-- Connection Status -->
+    <string name="connection_status_connected">Connected</string>
+    <string name="connection_status_disconnected">Disconnected</string>
+    <string name="connection_status_loading">Loading…</string>
+
+    <!-- TopBar -->
+    <string name="topbar_app_name">Pricely</string>
+    <string name="topbar_back">Back</string>
+    <string name="topbar_reconnect">Reconnect</string>
+    <string name="topbar_symbol_details">Symbol Details</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_trend_up">Trend up</string>
+    <string name="cd_trend_down">Trend down</string>
+    <string name="cd_connection_connected">Connection active</string>
+    <string name="cd_action_button_reconnect">Reconnect to server</string>
+    <string name="cd_stock_icon">Company icon</string>
+
+    <!-- State View Preview -->
+    <string name="preview_state_title">Connection interrupted</string>
+    <string name="preview_state_description">We could not connect to get the latest prices. Try again to connect in a moment</string>
+
 </resources>

@@ -10,7 +10,8 @@ data class PricelyColor internal constructor(
     val primary100: Color = Color(0xFF3E52C1),
     val primary300: Color = Color(0xFF253174),
 
-    val greyscale0: Color = Color(0xFFF8FAFB),
+    val greyscale25: Color = Color(0xFFF8FAFB),
+    val greyscale200: Color = Color(0xFFE0E5EB),
     val greyscale300: Color = Color(0xFFA4ACB9),
     val greyscale400: Color = Color(0xFF818898),
     val greyscale500: Color = Color(0xFF666D80),
