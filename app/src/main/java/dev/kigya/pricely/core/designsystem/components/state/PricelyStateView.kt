@@ -45,7 +45,7 @@ fun PricelyStateView(
 
         PricelyText(
             text = title,
-            style = AppTheme.typography.headingLarge,
+            style = AppTheme.typography.headingMedium,
             color = AppTheme.colors.textPrimary,
             textAlign = TextAlign.Center,
         )
@@ -61,20 +61,15 @@ fun PricelyStateView(
     }
 }
 
-@Composable
-private fun StateViewPreview() {
-    PricelyStateView(
-        icon = painterResource(R.drawable.ic_sync),
-        title = stringResource(R.string.feed_error_title),
-        description = stringResource(R.string.feed_error_description),
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun StateView_Light() {
     PricelyPreview(isDark = false) {
-        StateViewPreview()
+        PricelyStateView(
+            icon = painterResource(R.drawable.ic_sync),
+            title = "Connection interrupted",
+            description = "We could not connect to get the latest prices. Try again in a moment.",
+        )
     }
 }
 
@@ -82,6 +77,11 @@ private fun StateView_Light() {
 @Composable
 private fun StateView_Dark() {
     PricelyPreview(isDark = true) {
-        StateViewPreview()
+        PricelyStateView(
+            icon = painterResource(R.drawable.ic_sync),
+            title = "Connection interrupted",
+            description = "We could not connect to get the latest prices. Try again in a moment.",
+        )
     }
 }
+

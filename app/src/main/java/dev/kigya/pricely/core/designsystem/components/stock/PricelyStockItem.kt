@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import dev.kigya.pricely.R
 import dev.kigya.pricely.core.designsystem.components.icon.PricelyIcon
@@ -53,21 +54,25 @@ fun PricelyStockItem(
     }
 
     val emphasis = if (isMuted) AppTheme.colors.textSecondary else AppTheme.colors.textPrimary
-    val secondaryEmphasis = if (isMuted) AppTheme.colors.textSecondary.copy(alpha = 0.85f) else AppTheme.colors.textSecondary
+    val secondaryEmphasis =
+        if (isMuted) AppTheme.colors.textSecondary.copy(alpha = 0.85f) else AppTheme.colors.textSecondary
 
     Row(
         modifier = modifier
             .fillMaxWidth()
             .alpha(if (isMuted) 0.72f else 1f)
-            .clickable(onClick = onClick)
-            .padding(
-                horizontal = AppTheme.dimens.space16,
-                vertical = AppTheme.dimens.space12,
+            .clickable(
+                role = Role.Button,
+                onClick = onClick,
             ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(
+            modifier = Modifier.padding(
+                horizontal = AppTheme.dimens.space16,
+                vertical = AppTheme.dimens.space12,
+            ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space12),
         ) {
@@ -82,7 +87,7 @@ fun PricelyStockItem(
             ) {
                 PricelyText(
                     text = ticker,
-                    style = AppTheme.typography.headingMedium,
+                    style = AppTheme.typography.bodyEmphasized,
                     color = emphasis,
                 )
 
@@ -95,6 +100,10 @@ fun PricelyStockItem(
         }
 
         Column(
+            modifier = Modifier.padding(
+                horizontal = AppTheme.dimens.space16,
+                vertical = AppTheme.dimens.space12,
+            ),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
         ) {
@@ -102,14 +111,14 @@ fun PricelyStockItem(
                 text = price,
                 trend = trend,
                 emphasisColor = emphasis,
-                style = AppTheme.typography.headingMedium,
+                style = AppTheme.typography.bodyEmphasized,
             )
 
             when (trend) {
                 PricelyTrend.NEUTRAL -> {
                     PricelyText(
                         text = changePercent,
-                        style = AppTheme.typography.bodySmall,
+                        style = AppTheme.typography.labelMedium,
                         color = trendColor,
                     )
                 }
@@ -121,7 +130,7 @@ fun PricelyStockItem(
                     ) {
                         PricelyText(
                             text = changePercent,
-                            style = AppTheme.typography.bodySmall,
+                            style = AppTheme.typography.labelMedium,
                             color = trendColor,
                         )
 
@@ -141,7 +150,7 @@ fun PricelyStockItem(
                     ) {
                         PricelyText(
                             text = changePercent,
-                            style = AppTheme.typography.bodySmall,
+                            style = AppTheme.typography.labelMedium,
                             color = trendColor,
                         )
 

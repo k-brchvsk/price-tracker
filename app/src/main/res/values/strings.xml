@@ -25,6 +25,9 @@
     <string name="feed_error_title">Connection interrupted</string>
     <string name="feed_error_description">We could not connect to get the latest prices. Try again in a moment.</string>
 
+    <!-- Stock List -->
+    <string name="stock_list_title">Symbols</string>
+
     <!-- Details -->
     <string name="details_unknown_symbol">Unknown symbol</string>
     <string name="details_loading">Loading…</string>

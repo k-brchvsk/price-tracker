@@ -31,6 +31,7 @@ class PriceSessionRepositoryImpl(
     override val state: StateFlow<PriceSessionState> = _sessionState.asStateFlow()
 
     private var sessionStarted = false
+    private var isManualDisconnect = false
 
     init {
         socketManager.setEventListener(
@@ -61,6 +62,7 @@ class PriceSessionRepositoryImpl(
     }
 
     private suspend fun stopFeed() {
+        isManualDisconnect = true
         mutex.withLock {
             ticker.stop()
             _sessionState.value = _sessionState.value.copy(isStreamConnected = false)
@@ -69,10 +71,10 @@ class PriceSessionRepositoryImpl(
     }
 
     private suspend fun startFeed() {
+        isManualDisconnect = false
         mutex.withLock {
             _sessionState.value = _sessionState.value.copy(
                 isStreamConnected = false,
-                isInitialConnectFailure = false,
             )
         }
         socketManager.reconnect()
@@ -94,11 +96,13 @@ class PriceSessionRepositoryImpl(
         mutex.withLock {
             ticker.stop()
             val s = _sessionState.value
+            val shouldMarkAsFailure = !isManualDisconnect && !s.hasEverReceivedValidEcho && isFailure
             _sessionState.value = s.copy(
                 initialConnectionSettled = true,
                 isStreamConnected = false,
-                isInitialConnectFailure = !s.hasEverReceivedValidEcho && isFailure,
+                isInitialConnectFailure = shouldMarkAsFailure,
             )
+            isManualDisconnect = false
         }
     }
 

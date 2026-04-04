@@ -48,7 +48,7 @@ fun PricelyConnectionStatus(
 
         PricelyText(
             text = stringResource(textRes),
-            style = AppTheme.typography.bodyMedium,
+            style = AppTheme.typography.labelSmall,
             color = AppTheme.colors.textPrimary,
         )
     }
