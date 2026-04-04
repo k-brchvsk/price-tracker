@@ -1,0 +1,1 @@
+package dev.kigya.pricely.domain.modeldata class PriceWirePayload(    val symbol: String,    val price: Double,    val seq: Long,)

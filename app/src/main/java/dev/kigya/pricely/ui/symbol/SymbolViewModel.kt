@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.kigya.pricely.domain.usecase.ObservePriceSessionUseCase
 import dev.kigya.pricely.domain.usecase.ReconnectPriceSessionUseCase
-import dev.kigya.pricely.ui.mapper.FeedUiMapper
+import dev.kigya.pricely.ui.mapper.toFeedUiState
 import dev.kigya.pricely.ui.model.FeedUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +17,7 @@ class SymbolViewModel(
 ) : ViewModel() {
 
     val uiState: StateFlow<FeedUiState> = observe()
-        .map(FeedUiMapper::map)
+        .map { it.toFeedUiState() }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
