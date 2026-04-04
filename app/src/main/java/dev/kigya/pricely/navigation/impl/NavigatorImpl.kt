@@ -2,7 +2,7 @@ package dev.kigya.pricely.navigation.impl
 
 import androidx.navigation.NavHostController
 import dev.kigya.pricely.navigation.api.Navigator
-import dev.kigya.pricely.navigation.destinations.StockListDestination
+import dev.kigya.pricely.navigation.destinations.SymbolDestination
 
 class NavigatorImpl(
     private val navController: NavHostController,
@@ -17,7 +17,7 @@ class NavigatorImpl(
 
     override fun navigateBack() {
         if (!navController.popBackStack()) {
-            navController.navigate(StockListDestination.route)
+            navController.navigate(SymbolDestination.route)
         }
     }
 }

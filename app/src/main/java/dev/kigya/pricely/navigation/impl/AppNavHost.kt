@@ -9,16 +9,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import dev.kigya.pricely.navigation.api.DeepLinks
-import dev.kigya.pricely.navigation.destinations.StockDetailsDestination
-import dev.kigya.pricely.navigation.destinations.StockListDestination
-import dev.kigya.pricely.ui.stockdetails.StockDetailsScreen
-import dev.kigya.pricely.ui.stocklist.StockListScreen
+import dev.kigya.pricely.navigation.destinations.SymbolDestination
+import dev.kigya.pricely.navigation.destinations.SymbolDetailsDestination
+import dev.kigya.pricely.ui.symbol.SymbolScreen
+import dev.kigya.pricely.ui.symboldetails.SymbolDetailsScreen
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = StockListDestination.route,
+    startDestination: String = SymbolDestination.route,
 ) {
     val navigator = rememberNavigator(navController)
 
@@ -27,18 +27,18 @@ fun AppNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        composable(StockListDestination.route) {
-            StockListScreen(
-                onStockClick = { symbol ->
-                    navigator.navigate(StockDetailsDestination.createRoute(symbol))
+        composable(SymbolDestination.route) {
+            SymbolScreen(
+                onSymbolClick = { symbol ->
+                    navigator.navigate(SymbolDetailsDestination.createRoute(symbol))
                 },
             )
         }
 
         composable(
-            route = StockDetailsDestination.route,
+            route = SymbolDetailsDestination.route,
             arguments = listOf(
-                navArgument(StockDetailsDestination.ARG_SYMBOL) {
+                navArgument(SymbolDetailsDestination.ARG_SYMBOL) {
                     type = NavType.StringType
                 },
             ),
@@ -47,13 +47,9 @@ fun AppNavHost(
                     uriPattern = DeepLinks.STOCK_DETAILS
                 },
             ),
-        ) { backStackEntry ->
-            val symbol = backStackEntry.requireString(StockDetailsDestination.ARG_SYMBOL)
-            StockDetailsScreen(
-                symbol = symbol,
-                onBackClick = {
-                    navigator.navigateBack()
-                },
+        ) {
+            SymbolDetailsScreen(
+                onBackClick = { navigator.navigateBack() },
             )
         }
     }
