@@ -28,7 +28,7 @@ data object PricelyTypography {
     val headingMedium = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
+        fontSize = 20.sp,
         lineHeight = 28.sp
     )
 
@@ -41,7 +41,7 @@ data object PricelyTypography {
 
     val bodyMedium = TextStyle(
         fontFamily = fontFamily,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp
     )
