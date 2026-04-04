@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,7 @@ fun PricelyTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .statusBarsPadding()
             .padding(
                 horizontal = AppTheme.dimens.space16,
                 vertical = AppTheme.dimens.space12,
@@ -84,14 +86,20 @@ private fun TopBarFeedPreview(state: PricelyConnectionState) {
         endContent = {
             PricelyConnectionStatus(state)
 
+            val isConnected = state == PricelyConnectionState.CONNECTED
             PricelyActionButton(
                 state = when (state) {
                     PricelyConnectionState.CONNECTED -> PricelyActionState.CONNECTED
                     PricelyConnectionState.DISCONNECTED -> PricelyActionState.DISCONNECTED
                     PricelyConnectionState.LOADING -> PricelyActionState.LOADING
                 },
-                icon = painterResource(R.drawable.ic_swap),
-                contentDescription = stringResource(R.string.topbar_reconnect),
+                icon = painterResource(
+                    if (isConnected) R.drawable.ic_stop else R.drawable.ic_play,
+                ),
+                contentDescription = stringResource(
+                    if (isConnected) R.string.topbar_stop_feed
+                    else R.string.topbar_start_feed,
+                ),
                 onClick = {},
             )
         },

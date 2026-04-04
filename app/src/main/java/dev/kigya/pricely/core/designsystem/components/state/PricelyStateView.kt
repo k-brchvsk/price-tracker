@@ -65,8 +65,8 @@ fun PricelyStateView(
 private fun StateViewPreview() {
     PricelyStateView(
         icon = painterResource(R.drawable.ic_sync),
-        title = stringResource(R.string.preview_state_title),
-        description = stringResource(R.string.preview_state_description),
+        title = stringResource(R.string.feed_error_title),
+        description = stringResource(R.string.feed_error_description),
     )
 }
 
