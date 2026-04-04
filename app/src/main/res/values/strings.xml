@@ -9,14 +9,16 @@
     <!-- TopBar -->
     <string name="topbar_app_name">Pricely</string>
     <string name="topbar_back">Back</string>
-    <string name="topbar_reconnect">Reconnect</string>
+    <string name="topbar_start_feed">Start feed</string>
+    <string name="topbar_stop_feed">Stop feed</string>
     <string name="topbar_symbol_details">Symbol Details</string>
 
     <!-- Content Descriptions -->
     <string name="cd_trend_up">Trend up</string>
     <string name="cd_trend_down">Trend down</string>
     <string name="cd_connection_connected">Connection active</string>
-    <string name="cd_action_button_reconnect">Reconnect to server</string>
+    <string name="cd_action_button_start">Start price feed</string>
+    <string name="cd_action_button_stop">Stop price feed</string>
     <string name="cd_stock_icon">Company icon</string>
 
     <!-- Feed error (full screen) -->

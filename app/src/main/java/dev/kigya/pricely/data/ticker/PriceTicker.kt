@@ -35,19 +35,27 @@ class PriceTicker(
         job = null
     }
 
-    fun buildPayload(quotes: Map<String, Quote>): String? {
-        val symbol = SymbolCatalog.entries.random().ticker
-        val quote = quotes[symbol] ?: return null
-        seq++
-        val jitter = Random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
-        val newPrice = (quote.currentPrice * (1.0 + jitter)).coerceAtLeast(MIN_PRICE)
-        val payload = PriceWirePayload(symbol = symbol, price = newPrice, seq = seq)
-        return json.encodeToString(payload.toWireDto())
+    fun buildTickPayloads(quotes: Map<String, Quote>): List<String> {
+        if (quotes.isEmpty()) return emptyList()
+        val symbols = SymbolCatalog.entries
+            .map { it.ticker }
+            .filter { it in quotes }
+            .shuffled()
+            .take(SYMBOLS_PER_TICK)
+        return symbols.mapNotNull { symbol ->
+            val quote = quotes[symbol] ?: return@mapNotNull null
+            seq++
+            val jitter = Random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
+            val newPrice = (quote.currentPrice * (1.0 + jitter)).coerceAtLeast(MIN_PRICE)
+            val payload = PriceWirePayload(symbol = symbol, price = newPrice, seq = seq)
+            json.encodeToString(payload.toWireDto())
+        }
     }
 
     companion object {
         private const val TICK_INTERVAL_MS = 2_000L
-        private const val MAX_JITTER_FRACTION = 0.02
+        private const val SYMBOLS_PER_TICK = 5
+        private const val MAX_JITTER_FRACTION = 0.07
         private const val MIN_PRICE = 0.01
         private val CRYPTO_TICKERS = setOf("BTC", "ETH", "SOL")
         private const val CRYPTO_MIN = 50_000.0

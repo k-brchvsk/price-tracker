@@ -6,7 +6,7 @@ import dev.kigya.pricely.data.websocket.WebSocketSessionManager
 import dev.kigya.pricely.domain.repository.PriceSessionController
 import dev.kigya.pricely.domain.repository.PriceSessionStateSource
 import dev.kigya.pricely.domain.usecase.ObservePriceSessionUseCase
-import dev.kigya.pricely.domain.usecase.ReconnectPriceSessionUseCase
+import dev.kigya.pricely.domain.usecase.TogglePriceFeedUseCase
 import dev.kigya.pricely.domain.usecase.StartPriceSessionUseCase
 import dev.kigya.pricely.ui.main.MainActivityViewModel
 import dev.kigya.pricely.ui.symbol.SymbolViewModel
@@ -36,7 +36,7 @@ val appModule = module {
     }
 
     factoryOf(::ObservePriceSessionUseCase)
-    factoryOf(::ReconnectPriceSessionUseCase)
+    factoryOf(::TogglePriceFeedUseCase)
     factoryOf(::StartPriceSessionUseCase)
 
     viewModelOf(::MainActivityViewModel)

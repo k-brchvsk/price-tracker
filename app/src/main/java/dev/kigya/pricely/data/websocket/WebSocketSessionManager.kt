@@ -91,11 +91,22 @@ class WebSocketSessionManager(
         lastUrl?.let { connect(it) }
     }
 
+    suspend fun disconnect() {
+        val old: WebSocket?
+        mutex.withLock {
+            reconnectJob?.cancel()
+            reconnectJob = null
+            reconnectAttempt = 0
+            old = socket
+            socket = null
+        }
+        old?.close(NORMAL_CLOSE_CODE, "manual disconnect")
+    }
+
     suspend fun send(text: String): Boolean {
         val ws = mutex.withLock { socket } ?: return false
         return ws.send(text)
     }
-
 
     private suspend fun handleSocketDown(closedSocket: WebSocket, isFailure: Boolean) {
         mutex.withLock {

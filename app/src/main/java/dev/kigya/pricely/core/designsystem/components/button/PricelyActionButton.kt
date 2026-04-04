@@ -89,21 +89,21 @@ private fun ActionButtonShowcase() {
         Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space16)) {
             PricelyActionButton(
                 state = PricelyActionState.CONNECTED,
-                icon = painterResource(R.drawable.ic_swap),
+                icon = painterResource(R.drawable.ic_stop),
                 contentDescription = null,
                 onClick = {},
             )
 
             PricelyActionButton(
                 state = PricelyActionState.DISCONNECTED,
-                icon = painterResource(R.drawable.ic_swap),
+                icon = painterResource(R.drawable.ic_play),
                 contentDescription = null,
                 onClick = {},
             )
 
             PricelyActionButton(
                 state = PricelyActionState.LOADING,
-                icon = painterResource(R.drawable.ic_swap),
+                icon = painterResource(R.drawable.ic_play),
                 contentDescription = null,
                 onClick = {},
             )

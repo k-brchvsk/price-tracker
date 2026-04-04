@@ -66,11 +66,17 @@ fun SymbolScreen(
                 endContent = {
                     PricelyConnectionStatus(state.toPricelyConnectionState())
 
+                    val isConnected = state.isConnected
                     PricelyActionButton(
                         state = state.toPricelyActionState(),
-                        icon = painterResource(R.drawable.ic_swap),
-                        contentDescription = stringResource(R.string.topbar_reconnect),
-                        onClick = { viewModel.onReconnectClicked() },
+                        icon = painterResource(
+                            if (isConnected) R.drawable.ic_stop else R.drawable.ic_play,
+                        ),
+                        contentDescription = stringResource(
+                            if (isConnected) R.string.topbar_stop_feed
+                            else R.string.topbar_start_feed,
+                        ),
+                        onClick = { viewModel.onToggleFeedClicked() },
                     )
                 },
             )

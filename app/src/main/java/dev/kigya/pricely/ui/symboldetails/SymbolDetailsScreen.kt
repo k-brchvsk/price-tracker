@@ -31,6 +31,8 @@ import dev.kigya.pricely.core.designsystem.components.topbar.PricelyTopBar
 import dev.kigya.pricely.core.designsystem.theme.AppTheme
 import dev.kigya.pricely.domain.model.Trend
 import dev.kigya.pricely.ui.mapper.symbolIconDrawableRes
+import dev.kigya.pricely.ui.mapper.toPricelyTrend
+import dev.kigya.pricely.util.compose.PricelyFlashingPriceText
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -163,10 +165,11 @@ fun SymbolDetailsScreen(
 
                             Spacer(modifier = Modifier.padding(top = AppTheme.dimens.space12))
 
-                            PricelyText(
+                            PricelyFlashingPriceText(
                                 text = state.formattedPrice,
+                                trend = state.trend.toPricelyTrend(),
+                                emphasisColor = AppTheme.colors.textPrimary,
                                 style = AppTheme.typography.headingMedium,
-                                color = AppTheme.colors.textPrimary,
                             )
 
                             val changeColor = when {

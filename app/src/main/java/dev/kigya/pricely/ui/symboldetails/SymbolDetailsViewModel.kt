@@ -25,7 +25,11 @@ class SymbolDetailsViewModel(
         .map { it.toSymbolDetailsUiState(symbol) }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_STOP_TIMEOUT_MS),
             initialValue = symbol.toInitialSymbolDetailsUiState(),
         )
+
+    private companion object {
+        const val WHILE_SUBSCRIBED_STOP_TIMEOUT_MS = 5_000L
+    }
 }

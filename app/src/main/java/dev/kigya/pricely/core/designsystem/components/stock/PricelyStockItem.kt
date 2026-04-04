@@ -20,6 +20,7 @@ import dev.kigya.pricely.core.designsystem.components.icon.PricelyIconVariant
 import dev.kigya.pricely.core.designsystem.components.text.PricelyText
 import dev.kigya.pricely.core.designsystem.preview.PricelyPreview
 import dev.kigya.pricely.core.designsystem.theme.AppTheme
+import dev.kigya.pricely.util.compose.PricelyFlashingPriceText
 
 enum class PricelyTrend {
     UP,
@@ -97,10 +98,11 @@ fun PricelyStockItem(
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
         ) {
-            PricelyText(
+            PricelyFlashingPriceText(
                 text = price,
+                trend = trend,
+                emphasisColor = emphasis,
                 style = AppTheme.typography.headingMedium,
-                color = emphasis,
             )
 
             when (trend) {

@@ -86,14 +86,20 @@ private fun TopBarFeedPreview(state: PricelyConnectionState) {
         endContent = {
             PricelyConnectionStatus(state)
 
+            val isConnected = state == PricelyConnectionState.CONNECTED
             PricelyActionButton(
                 state = when (state) {
                     PricelyConnectionState.CONNECTED -> PricelyActionState.CONNECTED
                     PricelyConnectionState.DISCONNECTED -> PricelyActionState.DISCONNECTED
                     PricelyConnectionState.LOADING -> PricelyActionState.LOADING
                 },
-                icon = painterResource(R.drawable.ic_swap),
-                contentDescription = stringResource(R.string.topbar_reconnect),
+                icon = painterResource(
+                    if (isConnected) R.drawable.ic_stop else R.drawable.ic_play,
+                ),
+                contentDescription = stringResource(
+                    if (isConnected) R.string.topbar_stop_feed
+                    else R.string.topbar_start_feed,
+                ),
                 onClick = {},
             )
         },

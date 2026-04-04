@@ -53,17 +53,29 @@ class PriceSessionRepositoryImpl(
         }
     }
 
-    override fun reconnect() {
+    override fun toggleFeed() {
         appScope.launch {
-            mutex.withLock {
-                ticker.stop()
-                _sessionState.value = _sessionState.value.copy(
-                    isStreamConnected = false,
-                    isInitialConnectFailure = false,
-                )
-            }
-            socketManager.reconnect()
+            val wasConnected = mutex.withLock { _sessionState.value.isStreamConnected }
+            if (wasConnected) stopFeed() else startFeed()
         }
+    }
+
+    private suspend fun stopFeed() {
+        mutex.withLock {
+            ticker.stop()
+            _sessionState.value = _sessionState.value.copy(isStreamConnected = false)
+        }
+        socketManager.disconnect()
+    }
+
+    private suspend fun startFeed() {
+        mutex.withLock {
+            _sessionState.value = _sessionState.value.copy(
+                isStreamConnected = false,
+                isInitialConnectFailure = false,
+            )
+        }
+        socketManager.reconnect()
     }
 
     private suspend fun handleConnected() {
@@ -115,13 +127,12 @@ class PriceSessionRepositoryImpl(
     }
 
     private suspend fun sendTick() {
-        var payload: String? = null
-        mutex.withLock {
+        val payloads = mutex.withLock {
             val state = _sessionState.value
             if (!state.isStreamConnected) return
-            payload = ticker.buildPayload(state.quotesBySymbol)
+            ticker.buildTickPayloads(state.quotesBySymbol)
         }
-        payload?.let { socketManager.send(it) }
+        payloads.forEach { socketManager.send(it) }
     }
 
     private suspend fun ensureSeeded() {
