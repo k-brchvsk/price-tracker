@@ -19,8 +19,12 @@
     <string name="cd_action_button_reconnect">Reconnect to server</string>
     <string name="cd_stock_icon">Company icon</string>
 
-    <!-- State View Preview -->
-    <string name="preview_state_title">Connection interrupted</string>
-    <string name="preview_state_description">We could not connect to get the latest prices. Try again to connect in a moment</string>
+    <!-- Feed error (full screen) -->
+    <string name="feed_error_title">Connection interrupted</string>
+    <string name="feed_error_description">We could not connect to get the latest prices. Try again in a moment.</string>
+
+    <!-- Details -->
+    <string name="details_unknown_symbol">Unknown symbol</string>
+    <string name="details_loading">Loading…</string>
 
 </resources>

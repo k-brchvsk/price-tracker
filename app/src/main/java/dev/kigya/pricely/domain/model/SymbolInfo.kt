@@ -1,6 +1,6 @@
-package dev.kigya.pricely.data.catalog
+package dev.kigya.pricely.domain.model
 
-data class SymbolMeta(
+data class SymbolInfo(
     val ticker: String,
     val displayName: String,
     val description: String,

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,6 +24,7 @@ import dev.kigya.pricely.core.designsystem.theme.AppTheme
 enum class PricelyTrend {
     UP,
     DOWN,
+    NEUTRAL,
 }
 
 @Composable
@@ -34,21 +36,28 @@ fun PricelyStockItem(
     changePercent: String,
     trend: PricelyTrend,
     modifier: Modifier = Modifier,
+    isMuted: Boolean = false,
     onClick: () -> Unit,
 ) {
     val trendColor = when (trend) {
         PricelyTrend.UP -> AppTheme.colors.success
         PricelyTrend.DOWN -> AppTheme.colors.error
+        PricelyTrend.NEUTRAL -> AppTheme.colors.textSecondary
     }
 
     val trendContentDescription = when (trend) {
         PricelyTrend.UP -> stringResource(R.string.cd_trend_up)
         PricelyTrend.DOWN -> stringResource(R.string.cd_trend_down)
+        PricelyTrend.NEUTRAL -> null
     }
+
+    val emphasis = if (isMuted) AppTheme.colors.textSecondary else AppTheme.colors.textPrimary
+    val secondaryEmphasis = if (isMuted) AppTheme.colors.textSecondary.copy(alpha = 0.85f) else AppTheme.colors.textSecondary
 
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .alpha(if (isMuted) 0.72f else 1f)
             .clickable(onClick = onClick)
             .padding(
                 horizontal = AppTheme.dimens.space16,
@@ -73,13 +82,13 @@ fun PricelyStockItem(
                 PricelyText(
                     text = ticker,
                     style = AppTheme.typography.headingMedium,
-                    color = AppTheme.colors.textPrimary,
+                    color = emphasis,
                 )
 
                 PricelyText(
                     text = name,
                     style = AppTheme.typography.bodySmall,
-                    color = AppTheme.colors.textSecondary,
+                    color = secondaryEmphasis,
                 )
             }
         }
@@ -91,30 +100,57 @@ fun PricelyStockItem(
             PricelyText(
                 text = price,
                 style = AppTheme.typography.headingMedium,
-                color = AppTheme.colors.textPrimary,
+                color = emphasis,
             )
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
-            ) {
-                PricelyText(
-                    text = changePercent,
-                    style = AppTheme.typography.bodySmall,
-                    color = trendColor,
-                )
+            when (trend) {
+                PricelyTrend.NEUTRAL -> {
+                    PricelyText(
+                        text = changePercent,
+                        style = AppTheme.typography.bodySmall,
+                        color = trendColor,
+                    )
+                }
 
-                PricelyIcon(
-                    painter = painterResource(
-                        when (trend) {
-                            PricelyTrend.UP -> R.drawable.ic_arrow_up
-                            PricelyTrend.DOWN -> R.drawable.ic_arrow_down
-                        },
-                    ),
-                    contentDescription = trendContentDescription,
-                    variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
-                    tint = trendColor,
-                )
+                PricelyTrend.UP -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
+                    ) {
+                        PricelyText(
+                            text = changePercent,
+                            style = AppTheme.typography.bodySmall,
+                            color = trendColor,
+                        )
+
+                        PricelyIcon(
+                            painter = painterResource(R.drawable.ic_arrow_up),
+                            contentDescription = trendContentDescription,
+                            variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
+                            tint = trendColor,
+                        )
+                    }
+                }
+
+                PricelyTrend.DOWN -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
+                    ) {
+                        PricelyText(
+                            text = changePercent,
+                            style = AppTheme.typography.bodySmall,
+                            color = trendColor,
+                        )
+
+                        PricelyIcon(
+                            painter = painterResource(R.drawable.ic_arrow_down),
+                            contentDescription = trendContentDescription,
+                            variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
+                            tint = trendColor,
+                        )
+                    }
+                }
             }
         }
     }

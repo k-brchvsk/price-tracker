@@ -1,7 +1,7 @@
 package dev.kigya.pricely.ui.mapper
 
 import dev.kigya.pricely.domain.logic.PriceQuoteMerge
-import dev.kigya.pricely.data.catalog.SymbolCatalog
+import dev.kigya.pricely.domain.catalog.SymbolCatalog
 import dev.kigya.pricely.domain.model.PriceSessionState
 import dev.kigya.pricely.ui.model.FeedUiState
 import dev.kigya.pricely.ui.model.QuoteUiModel
