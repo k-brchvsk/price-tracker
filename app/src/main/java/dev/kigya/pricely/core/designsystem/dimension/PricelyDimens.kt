@@ -21,8 +21,8 @@ data object PricelyDimens {
     val borderThin = 1.dp
     val statusDot = 8.dp
 
-    val actionButtonSize = 48.dp
-    val actionIconSize = 24.dp
+    val actionButtonSize = 24.dp
+    val actionIconSize = 12.dp
 }
 
 val LocalDimens = staticCompositionLocalOf<PricelyDimens> {

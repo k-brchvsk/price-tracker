@@ -5,30 +5,31 @@ import dev.kigya.pricely.R
 
 @DrawableRes
 fun String.symbolIconDrawableRes(): Int = when (this) {
-    "AAPL" -> R.drawable.ic_apple
-    "MSFT" -> R.drawable.ic_github
-    "GOOGL" -> R.drawable.ic_google
-    "AMZN" -> R.drawable.ic_stripe
-    "META" -> R.drawable.ic_meta
-    "NVDA" -> R.drawable.ic_nvidia
-    "TSLA" -> R.drawable.ic_tesla
-    "BTC" -> R.drawable.ic_square
-    "ETH" -> R.drawable.ic_dropbox
-    "SOL" -> R.drawable.ic_spotify
-    "JPM" -> R.drawable.ic_paypal
-    "V" -> R.drawable.ic_visa
-    "JNJ" -> R.drawable.ic_facebook
-    "WMT" -> R.drawable.ic_uber
-    "PG" -> R.drawable.ic_whatsapp
-    "MA" -> R.drawable.ic_mastercard
-    "DIS" -> R.drawable.ic_youtube
-    "NFLX" -> R.drawable.ic_netflix
+    "AIRBNB" -> R.drawable.ic_airbnb
     "AMD" -> R.drawable.ic_amd
+    "AAPL" -> R.drawable.ic_apple
+    "DISCORD" -> R.drawable.ic_discord
+    "DROPBOX" -> R.drawable.ic_dropbox
+    "FB" -> R.drawable.ic_facebook
+    "GITHUB" -> R.drawable.ic_github
+    "GOOGL" -> R.drawable.ic_google
     "INTC" -> R.drawable.ic_intel
-    "CSCO" -> R.drawable.ic_discord
-    "XOM" -> R.drawable.ic_snapchat
-    "CVX" -> R.drawable.ic_tiktok
-    "BAC" -> R.drawable.ic_reddit
-    "KO" -> R.drawable.ic_airbnb
+    "MA" -> R.drawable.ic_mastercard
+    "META" -> R.drawable.ic_meta
+    "NFLX" -> R.drawable.ic_netflix
+    "NVDA" -> R.drawable.ic_nvidia
+    "PAYPAL" -> R.drawable.ic_paypal
+    "REDDIT" -> R.drawable.ic_reddit
+    "SNAP" -> R.drawable.ic_snapchat
+    "SPOT" -> R.drawable.ic_spotify
+    "SQUARE" -> R.drawable.ic_square
+    "STRIPE" -> R.drawable.ic_stripe
+    "TSLA" -> R.drawable.ic_tesla
+    "TIKTOK" -> R.drawable.ic_tiktok
+    "UBER" -> R.drawable.ic_uber
+    "VISA" -> R.drawable.ic_visa
+    "WHATSAPP" -> R.drawable.ic_whatsapp
+    "YOUTUBE" -> R.drawable.ic_youtube
+
     else -> R.drawable.ic_square
 }

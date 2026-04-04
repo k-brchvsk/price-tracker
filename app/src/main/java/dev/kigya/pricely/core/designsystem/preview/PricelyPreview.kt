@@ -15,7 +15,7 @@ fun PricelyPreview(
     PricelyTheme(isDark = isDark) {
         Box(
             modifier = Modifier
-                .background(AppTheme.colors.background)
+                .background(AppTheme.colors.background),
         ) {
             content()
         }

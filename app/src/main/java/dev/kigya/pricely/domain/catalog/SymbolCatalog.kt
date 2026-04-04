@@ -8,127 +8,151 @@ object SymbolCatalog {
         SymbolInfo(
             ticker = "AAPL",
             displayName = "Apple Inc.",
-            description = "Consumer electronics and software ecosystem; iPhone and services drive recurring revenue.",
+            description = "Consumer electronics, software, and services ecosystem including iPhone, Mac, and iCloud.",
         ),
-        SymbolInfo(
-            ticker = "MSFT",
-            displayName = "Microsoft Corporation",
-            description = "Cloud, productivity, and enterprise software including Azure and Office.",
-        ),
+
         SymbolInfo(
             ticker = "GOOGL",
-            displayName = "Alphabet Inc. Class A",
-            description = "Search, advertising, and cloud; parent of Google services and Android ecosystem.",
+            displayName = "Alphabet Inc.",
+            description = "Search, advertising, and cloud services powering the Google ecosystem.",
         ),
-        SymbolInfo(
-            ticker = "AMZN",
-            displayName = "Amazon.com Inc.",
-            description = "E-commerce, logistics, and AWS cloud infrastructure.",
-        ),
+
         SymbolInfo(
             ticker = "META",
             displayName = "Meta Platforms Inc.",
-            description = "Social products including Facebook, Instagram, and Reality Labs.",
+            description = "Social platforms including Facebook, Instagram, and virtual reality products.",
         ),
-        SymbolInfo(
-            ticker = "NVDA",
-            displayName = "NVIDIA Corporation",
-            description = "Accelerated computing, GPUs, and AI data center platforms.",
-        ),
-        SymbolInfo(
-            ticker = "TSLA",
-            displayName = "Tesla Inc.",
-            description = "Electric vehicles, energy storage, and autonomy software.",
-        ),
-        SymbolInfo(
-            ticker = "BTC",
-            displayName = "Bitcoin",
-            description = "Decentralized digital asset used as a store of value and settlement layer.",
-        ),
-        SymbolInfo(
-            ticker = "ETH",
-            displayName = "Ethereum",
-            description = "Programmable blockchain supporting smart contracts and decentralized applications.",
-        ),
-        SymbolInfo(
-            ticker = "SOL",
-            displayName = "Solana",
-            description = "High-throughput blockchain focused on performance and developer tooling.",
-        ),
-        SymbolInfo(
-            ticker = "JPM",
-            displayName = "JPMorgan Chase & Co.",
-            description = "Global investment bank and consumer banking franchise.",
-        ),
-        SymbolInfo(
-            ticker = "V",
-            displayName = "Visa Inc.",
-            description = "Payment network connecting consumers, merchants, and financial institutions.",
-        ),
-        SymbolInfo(
-            ticker = "JNJ",
-            displayName = "Johnson & Johnson",
-            description = "Healthcare conglomerate spanning pharmaceuticals, medtech, and consumer health.",
-        ),
-        SymbolInfo(
-            ticker = "WMT",
-            displayName = "Walmart Inc.",
-            description = "Retail and grocery at scale with growing e-commerce and marketplace services.",
-        ),
-        SymbolInfo(
-            ticker = "PG",
-            displayName = "Procter & Gamble Co.",
-            description = "Household brands across fabric care, beauty, grooming, and health.",
-        ),
-        SymbolInfo(
-            ticker = "MA",
-            displayName = "Mastercard Inc.",
-            description = "Global payments technology company enabling card and digital transactions.",
-        ),
-        SymbolInfo(
-            ticker = "DIS",
-            displayName = "The Walt Disney Company",
-            description = "Media, parks, experiences, and streaming platforms.",
-        ),
+
         SymbolInfo(
             ticker = "NFLX",
             displayName = "Netflix Inc.",
-            description = "Subscription streaming entertainment and original content production.",
+            description = "Streaming entertainment platform with original content and global distribution.",
         ),
+
+        SymbolInfo(
+            ticker = "NVDA",
+            displayName = "NVIDIA Corporation",
+            description = "Leader in GPUs and AI computing for data centers, gaming, and machine learning.",
+        ),
+
         SymbolInfo(
             ticker = "AMD",
-            displayName = "Advanced Micro Devices Inc.",
-            description = "CPUs, GPUs, and adaptive computing for PCs, data centers, and embedded.",
+            displayName = "Advanced Micro Devices",
+            description = "High-performance CPUs and GPUs for gaming, PCs, and data centers.",
         ),
+
         SymbolInfo(
             ticker = "INTC",
             displayName = "Intel Corporation",
-            description = "Semiconductor manufacturing and platforms for client and data center compute.",
+            description = "Semiconductor company producing processors and computing platforms.",
         ),
+
         SymbolInfo(
-            ticker = "CSCO",
-            displayName = "Cisco Systems Inc.",
-            description = "Networking, security, collaboration, and observability for enterprises.",
+            ticker = "TIKTOK",
+            displayName = "TikTok",
+            description = "Short-form video platform for entertainment and content creation.",
         ),
+
         SymbolInfo(
-            ticker = "XOM",
-            displayName = "Exxon Mobil Corporation",
-            description = "Integrated oil and gas exploration, production, and chemicals.",
+            ticker = "UBER",
+            displayName = "Uber Technologies Inc.",
+            description = "Ride-sharing, food delivery, and mobility platform services.",
         ),
+
         SymbolInfo(
-            ticker = "CVX",
-            displayName = "Chevron Corporation",
-            description = "Upstream and downstream energy with LNG and lower-carbon projects.",
+            ticker = "SPOT",
+            displayName = "Spotify Technology",
+            description = "Music streaming platform offering podcasts and digital audio services.",
         ),
+
         SymbolInfo(
-            ticker = "BAC",
-            displayName = "Bank of America Corp.",
-            description = "Consumer banking, wealth management, and global markets.",
+            ticker = "SNAP",
+            displayName = "Snap Inc.",
+            description = "Social media and messaging platform focused on visual communication.",
         ),
+
         SymbolInfo(
-            ticker = "KO",
-            displayName = "The Coca-Cola Company",
-            description = "Beverage brands and global distribution with a focus on sparkling and still drinks.",
+            ticker = "DISCORD",
+            displayName = "Discord",
+            description = "Communication platform for communities, gaming, and collaboration.",
+        ),
+
+        SymbolInfo(
+            ticker = "DROPBOX",
+            displayName = "Dropbox Inc.",
+            description = "Cloud storage and file synchronization services.",
+        ),
+
+        SymbolInfo(
+            ticker = "FB",
+            displayName = "Facebook",
+            description = "Social networking platform for connecting users and businesses.",
+        ),
+
+        SymbolInfo(
+            ticker = "GITHUB",
+            displayName = "GitHub",
+            description = "Platform for version control and collaborative software development.",
+        ),
+
+        SymbolInfo(
+            ticker = "PAYPAL",
+            displayName = "PayPal Holdings Inc.",
+            description = "Digital payments platform for online and mobile transactions.",
+        ),
+
+        SymbolInfo(
+            ticker = "STRIPE",
+            displayName = "Stripe",
+            description = "Payment infrastructure for online businesses and financial services.",
+        ),
+
+        SymbolInfo(
+            ticker = "SQUARE",
+            displayName = "Block Inc.",
+            description = "Financial services and mobile payments including Square and Cash App.",
+        ),
+
+        SymbolInfo(
+            ticker = "MA",
+            displayName = "Mastercard Inc.",
+            description = "Global payment network enabling electronic transactions.",
+        ),
+
+        SymbolInfo(
+            ticker = "VISA",
+            displayName = "Visa Inc.",
+            description = "Worldwide payment technology connecting consumers and businesses.",
+        ),
+
+        SymbolInfo(
+            ticker = "TSLA",
+            displayName = "Tesla Inc.",
+            description = "Electric vehicles, renewable energy, and autonomous driving technology.",
+        ),
+
+        SymbolInfo(
+            ticker = "YOUTUBE",
+            displayName = "YouTube",
+            description = "Video sharing platform with user-generated and premium content.",
+        ),
+
+        SymbolInfo(
+            ticker = "WHATSAPP",
+            displayName = "WhatsApp",
+            description = "Messaging platform for secure communication worldwide.",
+        ),
+
+        SymbolInfo(
+            ticker = "REDDIT",
+            displayName = "Reddit Inc.",
+            description = "Community-driven discussion platform with user-generated content.",
+        ),
+
+        SymbolInfo(
+            ticker = "AIRBNB",
+            displayName = "Airbnb Inc.",
+            description = "Marketplace for short-term rentals and travel experiences.",
         ),
     )
 

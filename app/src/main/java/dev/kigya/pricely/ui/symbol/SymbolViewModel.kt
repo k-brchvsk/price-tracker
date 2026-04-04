@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 class SymbolViewModel(
     observe: ObservePriceSessionUseCase,
     private val toggleFeed: TogglePriceFeedUseCase,
-    ) : ViewModel() {
+) : ViewModel() {
 
     val uiState: StateFlow<FeedUiState> = observe()
         .map { it.toFeedUiState() }
@@ -22,7 +22,7 @@ class SymbolViewModel(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_STOP_TIMEOUT_MS),
             initialValue = FeedUiState.Loading,
-            )
+        )
 
     fun onToggleFeedClicked() {
         toggleFeed()

@@ -1,6 +1,7 @@
 package dev.kigya.pricely.ui.symboldetails
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,18 +10,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.kigya.pricely.R
 import dev.kigya.pricely.core.designsystem.components.description.PricelyDescriptionCard
@@ -32,6 +34,7 @@ import dev.kigya.pricely.core.designsystem.theme.AppTheme
 import dev.kigya.pricely.domain.model.Trend
 import dev.kigya.pricely.ui.mapper.symbolIconDrawableRes
 import dev.kigya.pricely.ui.mapper.toPricelyTrend
+import dev.kigya.pricely.ui.model.SymbolDetailsUiState
 import dev.kigya.pricely.util.compose.PricelyFlashingPriceText
 import org.koin.androidx.compose.koinViewModel
 
@@ -43,53 +46,74 @@ fun SymbolDetailsScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        containerColor = AppTheme.colors.background,
-        topBar = {
-            PricelyTopBar(
-                startContent = {
+    SymbolDetailsScreenContent(
+        state = state,
+        modifier = modifier,
+        onBackClick = onBackClick,
+    )
+}
+
+@Composable
+private fun SymbolDetailsScreenContent(
+    state: SymbolDetailsUiState,
+    modifier: Modifier,
+    onBackClick: () -> Unit,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background),
+    ) {
+        PricelyTopBar(
+            startContent = {
+                Box(
+                    modifier = Modifier
+                        .clip(AppTheme.shapes.circle)
+                        .clickable(onClick = onBackClick),
+                ) {
                     PricelyIcon(
                         painter = painterResource(R.drawable.ic_chevron_back),
                         contentDescription = stringResource(R.string.topbar_back),
                         tint = AppTheme.colors.backIcon,
-                        modifier = Modifier.clickable(onClick = onBackClick),
                     )
-                },
-                centerContent = {
-                    PricelyText(
-                        text = stringResource(R.string.topbar_symbol_details),
-                        style = AppTheme.typography.headingMedium,
-                    )
-                },
-            )
-        },
-    ) { innerPadding ->
-        Column(
+                }
+            },
+            centerContent = {
+                PricelyText(
+                    text = stringResource(R.string.topbar_symbol_details),
+                    style = AppTheme.typography.headingMedium,
+                )
+            },
+        )
+
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
                 .padding(AppTheme.dimens.space16),
         ) {
             when {
                 state.unknownSymbol -> {
-                    PricelyText(
-                        text = stringResource(R.string.details_unknown_symbol),
-                        style = AppTheme.typography.headingMedium,
-                        color = AppTheme.colors.textPrimary,
-                    )
-                    PricelyText(
-                        text = state.formattedPrice,
-                        style = AppTheme.typography.bodyLarge,
-                        color = AppTheme.colors.textSecondary,
-                        modifier = Modifier.padding(top = AppTheme.dimens.space8),
-                    )
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space8),
+                    ) {
+                        PricelyText(
+                            text = stringResource(R.string.details_unknown_symbol),
+                            style = AppTheme.typography.headingMedium,
+                            color = AppTheme.colors.textPrimary,
+                        )
+                        PricelyText(
+                            text = state.formattedPrice,
+                            style = AppTheme.typography.bodyLarge,
+                            color = AppTheme.colors.textSecondary,
+                        )
+                    }
                 }
 
                 state.isLoading -> {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.align(Alignment.Center),
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,117 +133,121 @@ fun SymbolDetailsScreen(
                 }
 
                 else -> {
-                    val borderColor = when {
-                        !state.showTrendIndicators -> AppTheme.colors.cardBorder
-                        state.trend == Trend.Up -> AppTheme.colors.success
-                        state.trend == Trend.Down -> AppTheme.colors.error
-                        else -> AppTheme.colors.cardBorder
-                    }
-
-                    val cardTint = when {
-                        !state.showTrendIndicators -> AppTheme.colors.surface
-                        state.trend == Trend.Up -> AppTheme.colors.success.copy(alpha = 0.08f)
-                        state.trend == Trend.Down -> AppTheme.colors.error.copy(alpha = 0.08f)
-                        else -> AppTheme.colors.surface
-                    }
-
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = AppTheme.shapes.medium,
-                        border = BorderStroke(AppTheme.dimens.borderThin, borderColor),
-                        colors = CardDefaults.cardColors(containerColor = cardTint),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(AppTheme.dimens.space16),
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space12),
-                            ) {
-                                PricelyIcon(
-                                    painter = painterResource(state.symbol.symbolIconDrawableRes()),
-                                    contentDescription = stringResource(R.string.cd_stock_icon),
-                                    variant = PricelyIconVariant.CIRCLE_BACKGROUND,
-                                )
+                        val borderColor = when {
+                            !state.showTrendIndicators -> AppTheme.colors.cardBorder
+                            state.trend == Trend.Up -> AppTheme.colors.success
+                            state.trend == Trend.Down -> AppTheme.colors.error
+                            else -> AppTheme.colors.cardBorder
+                        }
 
-                                Column(
-                                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
+                        val cardTint = when {
+                            !state.showTrendIndicators -> AppTheme.colors.surface
+                            state.trend == Trend.Up -> AppTheme.colors.success.copy(alpha = 0.08f)
+                            state.trend == Trend.Down -> AppTheme.colors.error.copy(alpha = 0.08f)
+                            else -> AppTheme.colors.surface
+                        }
+
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = AppTheme.shapes.medium,
+                            border = BorderStroke(AppTheme.dimens.borderThin, borderColor),
+                            colors = CardDefaults.cardColors(containerColor = cardTint),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(AppTheme.dimens.space16),
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space12),
                                 ) {
-                                    PricelyText(
-                                        text = state.symbol,
-                                        style = AppTheme.typography.headingMedium,
-                                        color = AppTheme.colors.textPrimary,
+                                    PricelyIcon(
+                                        painter = painterResource(state.symbol.symbolIconDrawableRes()),
+                                        contentDescription = stringResource(R.string.cd_stock_icon),
+                                        variant = PricelyIconVariant.CIRCLE_BACKGROUND,
                                     )
-                                    state.companyName?.let { name ->
+
+                                    Column(
+                                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
+                                    ) {
                                         PricelyText(
-                                            text = name,
-                                            style = AppTheme.typography.bodySmall,
-                                            color = AppTheme.colors.textSecondary,
+                                            text = state.symbol,
+                                            style = AppTheme.typography.headingMedium,
+                                            color = AppTheme.colors.textPrimary,
                                         )
+                                        state.companyName?.let { name ->
+                                            PricelyText(
+                                                text = name,
+                                                style = AppTheme.typography.bodySmall,
+                                                color = AppTheme.colors.textSecondary,
+                                            )
+                                        }
                                     }
                                 }
-                            }
 
-                            Spacer(modifier = Modifier.padding(top = AppTheme.dimens.space12))
+                                Spacer(modifier = Modifier.height(AppTheme.dimens.space12))
 
-                            PricelyFlashingPriceText(
-                                text = state.formattedPrice,
-                                trend = state.trend.toPricelyTrend(),
-                                emphasisColor = AppTheme.colors.textPrimary,
-                                style = AppTheme.typography.headingMedium,
-                            )
-
-                            val changeColor = when {
-                                !state.showTrendIndicators -> AppTheme.colors.textSecondary
-                                state.trend == Trend.Up -> AppTheme.colors.success
-                                state.trend == Trend.Down -> AppTheme.colors.error
-                                else -> AppTheme.colors.textSecondary
-                            }
-
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
-                                modifier = Modifier.padding(top = AppTheme.dimens.space4),
-                            ) {
-                                PricelyText(
-                                    text = state.formattedPercentChange,
-                                    style = AppTheme.typography.bodySmall,
-                                    color = changeColor,
+                                PricelyFlashingPriceText(
+                                    text = state.formattedPrice,
+                                    trend = state.trend.toPricelyTrend(),
+                                    emphasisColor = AppTheme.colors.textPrimary,
+                                    style = AppTheme.typography.headingMedium,
                                 )
 
-                                if (state.showTrendIndicators) {
-                                    when (state.trend) {
-                                        Trend.Up -> {
-                                            PricelyIcon(
-                                                painter = painterResource(R.drawable.ic_arrow_up),
-                                                contentDescription = stringResource(R.string.cd_trend_up),
-                                                variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
-                                                tint = AppTheme.colors.success,
-                                            )
-                                        }
+                                val changeColor = when {
+                                    !state.showTrendIndicators -> AppTheme.colors.textSecondary
+                                    state.trend == Trend.Up -> AppTheme.colors.success
+                                    state.trend == Trend.Down -> AppTheme.colors.error
+                                    else -> AppTheme.colors.textSecondary
+                                }
 
-                                        Trend.Down -> {
-                                            PricelyIcon(
-                                                painter = painterResource(R.drawable.ic_arrow_down),
-                                                contentDescription = stringResource(R.string.cd_trend_down),
-                                                variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
-                                                tint = AppTheme.colors.error,
-                                            )
-                                        }
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space4),
+                                    modifier = Modifier.padding(top = AppTheme.dimens.space4),
+                                ) {
+                                    PricelyText(
+                                        text = state.formattedPercentChange,
+                                        style = AppTheme.typography.bodySmall,
+                                        color = changeColor,
+                                    )
 
-                                        Trend.Neutral -> {}
+                                    if (state.showTrendIndicators) {
+                                        when (state.trend) {
+                                            Trend.Up -> {
+                                                PricelyIcon(
+                                                    painter = painterResource(R.drawable.ic_arrow_up),
+                                                    contentDescription = stringResource(R.string.cd_trend_up),
+                                                    variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
+                                                    tint = AppTheme.colors.success,
+                                                )
+                                            }
+
+                                            Trend.Down -> {
+                                                PricelyIcon(
+                                                    painter = painterResource(R.drawable.ic_arrow_down),
+                                                    contentDescription = stringResource(R.string.cd_trend_down),
+                                                    variant = PricelyIconVariant.CIRCLE_BORDER_FILLED,
+                                                    tint = AppTheme.colors.error,
+                                                )
+                                            }
+
+                                            Trend.Neutral -> {}
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    state.description?.let { desc ->
-                        Spacer(modifier = Modifier.padding(top = AppTheme.dimens.space16))
-                        PricelyDescriptionCard(text = desc)
+                        state.description?.let { desc ->
+                            Spacer(modifier = Modifier.height(AppTheme.dimens.space16))
+                            PricelyDescriptionCard(text = desc)
+                        }
                     }
                 }
             }

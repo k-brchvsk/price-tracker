@@ -13,6 +13,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +53,8 @@ fun PricelyActionButton(
     Box(
         modifier = modifier
             .size(AppTheme.dimens.actionButtonSize)
-            .background(backgroundColor, CircleShape)
+            .clip(CircleShape)
+            .background(backgroundColor)
             .clickable(
                 enabled = state != PricelyActionState.LOADING,
                 onClick = onClick,
