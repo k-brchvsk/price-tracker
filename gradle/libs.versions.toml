@@ -38,9 +38,13 @@ detektComposeLopez = "0.5.6"
 detektComposeKode = "1.4.0"
 
 # Testing
-junit = "4.13.2"
 androidxJunit = "1.3.0"
-espresso = "3.7.0"
+kotest = "6.0.3"
+turbine = "1.2.0"
+mockk = "1.14.6"
+kover = "0.9.4"
+androidxLifecycleTesting = "2.10.0"
+androidxTestCore = "1.7.0"
 
 [libraries]
 # AndroidX Core
@@ -90,9 +94,14 @@ coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp"
 coil-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil" }
 
 # Testing
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
-androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+androidx-lifecycle-runtime-testing = { group = "androidx.lifecycle", name = "lifecycle-runtime-testing", version.ref = "androidxLifecycleTesting" }
 
 # Build Logic
 gradle-android = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -112,9 +121,12 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 
 convention-pricely-base-android-application = "pricely.base.android.application:1.0"
 convention-pricely-base-android-library = "pricely.base.android.library:1.0"
 convention-pricely-base-kotlin-library = "pricely.base.kotlin.library:1.0"
 convention-pricely-component-compose = "pricely.component.compose:1.0"
 convention-pricely-component-koin = "pricely.component.koin:1.0"
+convention-pricely-testing-jvm = "pricely.testing.jvm:1.0"
+convention-pricely-testing-android = "pricely.testing.android:1.0"

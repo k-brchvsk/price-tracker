@@ -12,7 +12,7 @@ import dev.kigya.pricely.feature.feed.internal.model.QuoteUiModel
 import dev.kigya.pricely.util.formatPercent
 import dev.kigya.pricely.util.formatPrice
 
-fun PriceSessionState.toFeedUiState(): FeedUiState {
+internal fun PriceSessionState.toFeedUiState(): FeedUiState {
     val isLoading = !isInitialConnectionSettled ||
         (
             !hasEverReceivedValidEcho &&
@@ -46,7 +46,7 @@ fun PriceSessionState.toFeedUiState(): FeedUiState {
     }
 }
 
-fun FeedUiState.toPricelyConnectionState(): PricelyConnectionState = when (this) {
+internal fun FeedUiState.toPricelyConnectionState(): PricelyConnectionState = when (this) {
     is FeedUiState.Loading -> PricelyConnectionState.LOADING
     is FeedUiState.Error -> PricelyConnectionState.DISCONNECTED
     is FeedUiState.Content ->
@@ -57,7 +57,7 @@ fun FeedUiState.toPricelyConnectionState(): PricelyConnectionState = when (this)
         }
 }
 
-fun FeedUiState.toPricelyActionState(): PricelyActionState = when (this) {
+internal fun FeedUiState.toPricelyActionState(): PricelyActionState = when (this) {
     is FeedUiState.Loading -> PricelyActionState.LOADING
     is FeedUiState.Error -> PricelyActionState.DISCONNECTED
     is FeedUiState.Content ->
@@ -68,7 +68,7 @@ fun FeedUiState.toPricelyActionState(): PricelyActionState = when (this) {
         }
 }
 
-fun Trend.toPricelyTrend(): PricelyTrend = when (this) {
+internal fun Trend.toPricelyTrend(): PricelyTrend = when (this) {
     Trend.Up -> PricelyTrend.UP
     Trend.Down -> PricelyTrend.DOWN
     Trend.Neutral -> PricelyTrend.NEUTRAL

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -26,7 +27,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.kigya.pricely.core.designsystem.components.description.PricelyDescriptionCard
@@ -44,7 +48,7 @@ import org.koin.androidx.compose.koinViewModel
 import dev.kigya.pricely.core.designsystem.R as DesignSystemR
 
 @Composable
-fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewModel()) {
+internal fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SymbolDetailsScreenContent(
@@ -54,16 +58,17 @@ fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun SymbolDetailsScreenContent(
+internal fun SymbolDetailsScreenContent(
     state: SymbolDetailsUiState,
     onBackClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background),
+            .background(AppTheme.colors.background)
+            .testTag("symbol_details_screen"),
     ) {
-        DetailsTopBar(onBackClick = onBackClick)
+        DetailsTopBar(title = state.symbol, onBackClick = onBackClick)
 
         Box(
             modifier = Modifier
@@ -96,6 +101,7 @@ private fun SymbolDetailsScreenContent(
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space16),
                     ) {
                         CircularProgressIndicator(
+                            modifier = Modifier.testTag("symbol_details_loading"),
                             color = AppTheme.colors.loadingIndicatorActive,
                             trackColor = AppTheme.colors.loadingIndicatorTrack,
                             strokeWidth = AppTheme.dimens.loadingIndicatorStroke,
@@ -104,6 +110,7 @@ private fun SymbolDetailsScreenContent(
                             text = stringResource(R.string.details_loading),
                             style = AppTheme.typography.bodyMedium,
                             color = AppTheme.colors.textSecondary,
+                            modifier = Modifier.testTag("symbol_details_loading_label"),
                         )
                     }
 
@@ -115,8 +122,11 @@ private fun SymbolDetailsScreenContent(
 }
 
 @Composable
-private fun DetailsTopBar(onBackClick: () -> Unit) {
-    Box(
+private fun DetailsTopBar(
+    title: String,
+    onBackClick: () -> Unit,
+) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .statusBarsPadding()
@@ -124,10 +134,10 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
                 horizontal = AppTheme.dimens.space16,
                 vertical = AppTheme.dimens.space12,
             ),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             modifier = Modifier
-                .align(Alignment.CenterStart)
                 .size(AppTheme.dimens.iconContainer)
                 .border(
                     width = AppTheme.dimens.borderThin,
@@ -135,7 +145,8 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
                     shape = LocalShapes.current.small,
                 )
                 .clip(AppTheme.shapes.small)
-                .clickable(onClick = onBackClick),
+                .clickable(onClick = onBackClick)
+                .testTag("symbol_details_back"),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -146,10 +157,18 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
             )
         }
         PricelyText(
-            text = stringResource(R.string.details_title),
+            text = title,
             style = AppTheme.typography.headingMedium,
-            modifier = Modifier.align(Alignment.Center),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(horizontal = AppTheme.dimens.space8)
+                .testTag("symbol_details_title"),
         )
+        Spacer(modifier = Modifier.width(AppTheme.dimens.iconContainer))
     }
 }
 
@@ -229,6 +248,7 @@ private fun SymbolDetailsPriceCard(
                 trend = state.trend.toPricelyTrend(),
                 emphasisColor = AppTheme.colors.textPrimary,
                 style = AppTheme.typography.headingMedium,
+                modifier = Modifier.testTag("symbol_details_price"),
             )
 
             if (state.shouldShowTrendIndicators) {

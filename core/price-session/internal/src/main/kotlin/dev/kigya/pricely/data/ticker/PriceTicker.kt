@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlin.random.Random
 
-class PriceTicker(
+internal class PriceTicker(
     private val scope: CoroutineScope,
     private val json: Json,
+    private val random: Random = Random.Default,
 ) {
     private var job: Job? = null
     private var sequenceNumber = 0L
@@ -40,12 +41,10 @@ class PriceTicker(
         val symbols = SymbolCatalog.entries
             .map { it.ticker }
             .filter { it in quotes }
-            .shuffled()
-            .take(SYMBOLS_PER_TICK)
         return symbols.mapNotNull { symbol ->
             val quote = quotes[symbol] ?: return@mapNotNull null
             sequenceNumber++
-            val jitter = Random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
+            val jitter = random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
             val newPrice = (quote.currentPrice * (1.0 + jitter)).coerceAtLeast(MIN_PRICE)
             val payload = PriceWirePayload(symbol = symbol, price = newPrice, sequenceNumber = sequenceNumber)
             json.encodeToString(payload.toWireDto())
@@ -74,7 +73,6 @@ class PriceTicker(
 }
 
 private const val TICK_INTERVAL_MS = 2_000L
-private const val SYMBOLS_PER_TICK = 5
 private const val MAX_JITTER_FRACTION = 0.07
 private const val MIN_PRICE = 0.01
 private val CRYPTO_TICKERS = setOf("BTC", "ETH", "SOL")

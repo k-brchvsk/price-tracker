@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class PricelyColor(
+internal data class PricelyColor(
     val primary0: Color = Color(0xFFC5CBEC),
     val primary100: Color = Color(0xFF3E52C1),
     val primary300: Color = Color(0xFF253174),

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.convention.pricely.base.android.application)
     alias(libs.plugins.convention.pricely.component.compose)
     alias(libs.plugins.convention.pricely.component.koin)
+    alias(libs.plugins.convention.pricely.testing.android)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -17,6 +18,7 @@ dependencies {
     projects {
         implementation(core.designSystem)
         implementation(core.priceSession.internal)
+        testImplementation(core.priceSession.api)
         implementation(feature.feed.api)
         implementation(feature.feed.di)
         implementation(feature.symbolDetails.api)
@@ -34,9 +36,5 @@ dependencies {
         implementation(coil.compose)
         implementation(coil.network.okhttp)
         implementation(coil.svg)
-        testImplementation(junit)
-        testImplementation(kotlinx.coroutines.test)
-        androidTestImplementation(androidx.test.ext.junit)
-        androidTestImplementation(androidx.test.espresso.core)
     }
 }

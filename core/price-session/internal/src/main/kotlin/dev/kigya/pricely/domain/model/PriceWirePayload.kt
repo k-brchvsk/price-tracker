@@ -1,6 +1,6 @@
 package dev.kigya.pricely.domain.model
 
-data class PriceWirePayload(
+internal data class PriceWirePayload(
     val symbol: String,
     val price: Double,
     val sequenceNumber: Long,

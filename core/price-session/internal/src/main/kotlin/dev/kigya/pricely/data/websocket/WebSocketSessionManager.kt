@@ -13,7 +13,7 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import kotlin.math.pow
 
-class WebSocketSessionManager(
+internal class WebSocketSessionManager(
     private val okHttpClient: OkHttpClient,
     private val scope: CoroutineScope,
 ) {

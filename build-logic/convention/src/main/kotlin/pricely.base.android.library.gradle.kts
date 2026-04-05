@@ -20,6 +20,14 @@ extensions.configure<LibraryExtension> {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    packaging {
+        resources {
+            pickFirsts += "META-INF/LICENSE.md"
+            pickFirsts += "META-INF/LICENSE-notice.md"
+            pickFirsts += "META-INF/NOTICE.md"
+        }
+    }
+
     compileOptions {
         val javaVersion = JavaVersion.toVersion(project.versionString("java"))
         sourceCompatibility = javaVersion

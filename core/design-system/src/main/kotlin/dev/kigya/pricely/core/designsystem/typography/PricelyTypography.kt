@@ -75,6 +75,6 @@ data object PricelyTypography {
     )
 }
 
-val LocalTypography = staticCompositionLocalOf<PricelyTypography> {
+internal val LocalTypography = staticCompositionLocalOf<PricelyTypography> {
     error("No PricelyTypography provided")
 }

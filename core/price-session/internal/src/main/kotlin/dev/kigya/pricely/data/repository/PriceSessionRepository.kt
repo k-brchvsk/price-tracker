@@ -18,7 +18,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 
-class PriceSessionRepository(
+internal class PriceSessionRepository(
     private val socketManager: WebSocketSessionManager,
     private val ticker: PriceTicker,
     private val appScope: CoroutineScope,

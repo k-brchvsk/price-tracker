@@ -1,6 +1,6 @@
 package dev.kigya.pricely.core.designsystem.symbol
 
-object SymbolBrandIconUrls {
+internal object SymbolBrandIconUrls {
 
     private const val SIMPLE_ICONS_CDN_BASE = "https://cdn.simpleicons.org"
 

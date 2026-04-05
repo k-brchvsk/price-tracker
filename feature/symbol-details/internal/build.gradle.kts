@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.convention.pricely.base.android.library)
     alias(libs.plugins.convention.pricely.component.compose)
     alias(libs.plugins.convention.pricely.component.koin)
+    alias(libs.plugins.convention.pricely.testing.android)
     alias(libs.plugins.kotlin.serialization)
 }
 

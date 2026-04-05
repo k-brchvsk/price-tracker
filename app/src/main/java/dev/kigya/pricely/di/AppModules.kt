@@ -15,21 +15,21 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-val appModule = module {
+internal val appModule = module {
     singleOf(::PricelySingletonImageLoaderFactory) bind SingletonImageLoader.Factory::class
     single { AppNavigator(rootDestination = FeedRoute) }
     single<NavigatorContract> { get<AppNavigator>() }
     viewModelOf(::MainActivityViewModel)
 }
 
-val appModules = listOf(
+internal val appModules = listOf(
     priceSessionModule,
     appModule,
     feedFeatureModule,
     symbolDetailsFeatureModule,
 )
 
-fun Application.installSingletonImageLoaderFromKoin() {
+internal fun Application.installSingletonImageLoaderFromKoin() {
     SingletonImageLoader.setSafe { context ->
         getKoin().get<SingletonImageLoader.Factory>().newImageLoader(context)
     }

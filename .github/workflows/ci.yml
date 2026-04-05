@@ -17,3 +17,11 @@ jobs:
     name: detekt
     if: ${{ true }}
     uses: ./.github/workflows/_detekt.yml
+
+  unit-tests:
+    name: unit-tests
+    uses: ./.github/workflows/_unit_tests.yml
+
+  release-build:
+    name: release-build
+    uses: ./.github/workflows/_build.yml
