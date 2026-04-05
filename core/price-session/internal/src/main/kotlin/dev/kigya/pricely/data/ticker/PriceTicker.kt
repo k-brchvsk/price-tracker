@@ -41,8 +41,6 @@ internal class PriceTicker(
         val symbols = SymbolCatalog.entries
             .map { it.ticker }
             .filter { it in quotes }
-            .shuffled(random)
-            .take(SYMBOLS_PER_TICK)
         return symbols.mapNotNull { symbol ->
             val quote = quotes[symbol] ?: return@mapNotNull null
             sequenceNumber++
@@ -75,7 +73,6 @@ internal class PriceTicker(
 }
 
 private const val TICK_INTERVAL_MS = 2_000L
-private const val SYMBOLS_PER_TICK = 5
 private const val MAX_JITTER_FRACTION = 0.07
 private const val MIN_PRICE = 0.01
 private val CRYPTO_TICKERS = setOf("BTC", "ETH", "SOL")

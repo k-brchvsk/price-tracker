@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dev.kigya.pricely.core.designsystem.theme.PricelyTheme
@@ -24,7 +25,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PricelyTheme {
-                AppNavigation(deepLinkIntents = mainViewModel.deepLinkIntents)
+                AppNavigation(
+                    deepLinkIntents = mainViewModel.deepLinkIntents,
+                    consumeInitialDeepLink = savedInstanceState == null,
+                )
             }
         }
     }
@@ -36,10 +40,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun AppNavigation(deepLinkIntents: SharedFlow<Intent>) {
+private fun AppNavigation(
+    deepLinkIntents: SharedFlow<Intent>,
+    consumeInitialDeepLink: Boolean,
+) {
     val navController = rememberNavController()
+    val activity = LocalContext.current as ComponentActivity
     DeepLinkEffect(navController, deepLinkIntents)
     AppNavHost(navController = navController)
+    LaunchedEffect(consumeInitialDeepLink) {
+        if (consumeInitialDeepLink) {
+            navController.handleDeepLink(activity.intent)
+        }
+    }
 }
 
 @Composable

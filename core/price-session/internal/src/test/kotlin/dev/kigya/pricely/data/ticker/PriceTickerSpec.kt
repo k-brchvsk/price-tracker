@@ -41,6 +41,26 @@ class PriceTickerSpec : FunSpec({
         }
     }
 
+    test("buildTickPayloads covers every catalog ticker when quotes map is complete") {
+        runTest {
+            val fixedRandom = Random(42)
+            val ticker = PriceTicker(backgroundScope, json, fixedRandom)
+            val quotes = SymbolCatalog.entries.associate { entry ->
+                entry.ticker to Quote(
+                    symbol = entry.ticker,
+                    currentPrice = 100.0,
+                    previousPrice = 100.0,
+                    trend = Trend.Neutral,
+                    lastSequenceNumber = 0L,
+                )
+            }
+            val payloads = ticker.buildTickPayloads(quotes)
+            payloads shouldHaveSize SymbolCatalog.entries.size
+            val symbols = payloads.map { json.decodeFromString<PriceWireDto>(it).symbol }.toSet()
+            symbols shouldBe SymbolCatalog.entries.map { it.ticker }.toSet()
+        }
+    }
+
     test("seedQuotes seeds every catalog ticker") {
         val seeded = PriceTicker.seedQuotes()
         seeded.size shouldBe SymbolCatalog.entries.size

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -28,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.kigya.pricely.core.designsystem.components.description.PricelyDescriptionCard
@@ -65,7 +68,7 @@ internal fun SymbolDetailsScreenContent(
             .background(AppTheme.colors.background)
             .testTag("symbol_details_screen"),
     ) {
-        DetailsTopBar(onBackClick = onBackClick)
+        DetailsTopBar(title = state.symbol, onBackClick = onBackClick)
 
         Box(
             modifier = Modifier
@@ -119,8 +122,11 @@ internal fun SymbolDetailsScreenContent(
 }
 
 @Composable
-private fun DetailsTopBar(onBackClick: () -> Unit) {
-    Box(
+private fun DetailsTopBar(
+    title: String,
+    onBackClick: () -> Unit,
+) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .statusBarsPadding()
@@ -128,10 +134,10 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
                 horizontal = AppTheme.dimens.space16,
                 vertical = AppTheme.dimens.space12,
             ),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             modifier = Modifier
-                .align(Alignment.CenterStart)
                 .size(AppTheme.dimens.iconContainer)
                 .border(
                     width = AppTheme.dimens.borderThin,
@@ -151,10 +157,18 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
             )
         }
         PricelyText(
-            text = stringResource(R.string.details_title),
+            text = title,
             style = AppTheme.typography.headingMedium,
-            modifier = Modifier.align(Alignment.Center),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(horizontal = AppTheme.dimens.space8)
+                .testTag("symbol_details_title"),
         )
+        Spacer(modifier = Modifier.width(AppTheme.dimens.iconContainer))
     }
 }
 

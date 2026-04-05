@@ -291,16 +291,6 @@ private fun FeedTopBar(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space8),
         ) {
             PricelyAppMark(modifier = Modifier.size(AppTheme.dimens.iconContainer))
-            PricelyText(
-                text = stringResource(R.string.feed_brand_title),
-                style = AppTheme.typography.headingMedium,
-            )
-        }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.space8),
-        ) {
             PricelyConnectionStatus(
                 labelResourceId = when (state) {
                     FeedUiState.Loading -> R.string.feed_connection_status_loading
@@ -319,21 +309,22 @@ private fun FeedTopBar(
                     null
                 },
             )
-            PricelyActionButton(
-                state = state.toPricelyActionState(),
-                icon = if (state is FeedUiState.Content) {
-                    if (state.isConnected) {
-                        Icons.Filled.Sync
-                    } else {
-                        Icons.Filled.SwapVert
-                    }
+        }
+
+        PricelyActionButton(
+            state = state.toPricelyActionState(),
+            icon = if (state is FeedUiState.Content) {
+                if (state.isConnected) {
+                    Icons.Filled.Sync
                 } else {
                     Icons.Filled.SwapVert
-                },
-                contentDescription = toggleFeedContentDescription,
-                onClick = onToggleFeedClick,
-            )
-        }
+                }
+            } else {
+                Icons.Filled.SwapVert
+            },
+            contentDescription = toggleFeedContentDescription,
+            onClick = onToggleFeedClick,
+        )
     }
 }
 

@@ -16,6 +16,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.koin.dsl.onClose
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 private const val OKHTTP_PING_INTERVAL_SECONDS = 30L
 
@@ -26,7 +27,7 @@ val priceSessionModule = module {
     single { Json { ignoreUnknownKeys = true } }
 
     singleOf(::WebSocketSessionManager)
-    singleOf(::PriceTicker)
+    single { PriceTicker(scope = get(), json = get(), random = Random.Default) }
     singleOf(::PriceSessionRepository) {
         bind<PriceSessionStateRepository>()
         bind<PriceSessionControllerRepository>()
