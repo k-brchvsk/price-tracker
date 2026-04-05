@@ -26,7 +26,7 @@ data class PricelyColorScheme(
     val actionButtonIconDisconnected: Color,
 )
 
-fun pricelyColorScheme(
+internal fun pricelyColorScheme(
     isDark: Boolean,
     colors: PricelyColor = PricelyColor(),
 ): PricelyColorScheme = PricelyColorScheme(
@@ -89,6 +89,6 @@ fun pricelyColorScheme(
     ).resolve(isDark),
 )
 
-val LocalPricelyColors = staticCompositionLocalOf<PricelyColorScheme> {
+internal val LocalPricelyColors = staticCompositionLocalOf<PricelyColorScheme> {
     error("No PricelyColorScheme provided")
 }

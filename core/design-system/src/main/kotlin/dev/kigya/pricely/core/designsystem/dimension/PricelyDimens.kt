@@ -25,6 +25,6 @@ data object PricelyDimens {
     val trendCircleIconSize = 12.dp
 }
 
-val LocalDimens = staticCompositionLocalOf<PricelyDimens> {
+internal val LocalDimens = staticCompositionLocalOf<PricelyDimens> {
     error("No PricelyDimens provided")
 }

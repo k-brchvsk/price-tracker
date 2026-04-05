@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlin.random.Random
 
-class PriceTicker(
+internal class PriceTicker(
     private val scope: CoroutineScope,
     private val json: Json,
 ) {

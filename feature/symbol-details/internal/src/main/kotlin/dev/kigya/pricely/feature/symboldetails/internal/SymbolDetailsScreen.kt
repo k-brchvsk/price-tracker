@@ -44,7 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 import dev.kigya.pricely.core.designsystem.R as DesignSystemR
 
 @Composable
-fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewModel()) {
+internal fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     SymbolDetailsScreenContent(

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class PricelyDynamicColor(
+internal data class PricelyDynamicColor(
     val light: Color,
     val dark: Color,
 ) {

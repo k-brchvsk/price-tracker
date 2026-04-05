@@ -4,7 +4,7 @@ import dev.kigya.pricely.domain.model.PriceWirePayload
 import dev.kigya.pricely.domain.model.Quote
 import dev.kigya.pricely.domain.model.Trend
 
-object PriceQuoteMerge {
+internal object PriceQuoteMerge {
 
     private const val PRICE_COMPARISON_EPSILON = 1e-9
 

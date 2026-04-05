@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
-class MainActivityViewModel(
+internal class MainActivityViewModel(
     private val startPriceSession: StartPriceSessionUseCase,
 ) : ViewModel() {
 

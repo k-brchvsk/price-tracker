@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PriceWireDto(
+internal data class PriceWireDto(
     @SerialName("symbol")
     val symbol: String,
     @SerialName("price")

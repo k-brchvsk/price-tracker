@@ -69,7 +69,7 @@ import org.koin.androidx.compose.koinViewModel
 import dev.kigya.pricely.core.designsystem.R as DesignSystemR
 
 @Composable
-fun FeedScreen(viewModel: FeedViewModel = koinViewModel()) {
+internal fun FeedScreen(viewModel: FeedViewModel = koinViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     FeedScreenContent(
         state = state,

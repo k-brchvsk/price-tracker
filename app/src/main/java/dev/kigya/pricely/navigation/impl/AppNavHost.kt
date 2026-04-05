@@ -13,7 +13,7 @@ import dev.kigya.pricely.navigation.internal.AppNavigator
 import org.koin.compose.koinInject
 
 @Composable
-fun AppNavHost(
+internal fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: NavigationRoute = FeedRoute,

@@ -8,7 +8,7 @@ import dev.kigya.pricely.feature.symboldetails.internal.model.SymbolDetailsUiSta
 import dev.kigya.pricely.util.formatPercent
 import dev.kigya.pricely.util.formatPrice
 
-fun PriceSessionState.toSymbolDetailsUiState(symbol: String): SymbolDetailsUiState {
+internal fun PriceSessionState.toSymbolDetailsUiState(symbol: String): SymbolDetailsUiState {
     val symbolMetadata = SymbolCatalog.metaOrNull(symbol)
     val unknown = symbol.isNotBlank() && symbolMetadata == null
     val quote = quotesBySymbol[symbol]
@@ -31,7 +31,7 @@ fun PriceSessionState.toSymbolDetailsUiState(symbol: String): SymbolDetailsUiSta
     )
 }
 
-fun String.toInitialSymbolDetailsUiState(): SymbolDetailsUiState {
+internal fun String.toInitialSymbolDetailsUiState(): SymbolDetailsUiState {
     val symbolMetadata = SymbolCatalog.metaOrNull(this)
     return SymbolDetailsUiState(
         symbol = this,
