@@ -2,7 +2,7 @@ package dev.kigya.pricely.ui.main
 
 import android.content.Intent
 import androidx.lifecycle.ViewModel
-import dev.kigya.pricely.domain.usecase.StartPriceSessionUseCase
+import dev.kigya.pricely.feature.feed.api.usecase.StartPriceSessionUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

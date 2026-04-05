@@ -1,94 +1,41 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.convention.pricely.base.android.application)
+    alias(libs.plugins.convention.pricely.component.compose)
+    alias(libs.plugins.convention.pricely.component.koin)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "dev.kigya.pricely"
-    compileSdk = 36
-
     defaultConfig {
         applicationId = "dev.kigya.pricely"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders["deepLinkScheme"] = "stocks"
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-}
-
-kotlin {
-    jvmToolchain(21)
 }
 
 dependencies {
-    // AndroidX Core
-    implementation(libs.androidx.core.ktx)
+    projects {
+        implementation(core.designSystem)
+        implementation(core.priceSession.internal)
+        implementation(feature.feed.api)
+        implementation(feature.feed.di)
+        implementation(feature.symbolDetails.api)
+        implementation(feature.symbolDetails.di)
+        implementation(navigation.api)
+    }
 
-    // Lifecycle - ViewModel + Runtime
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    // Navigation Compose
-    implementation(libs.androidx.navigation.compose)
-
-    // Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-
-    // Networking - OkHttp WebSocket
-    implementation(libs.okhttp)
-
-    // Coroutines
-    implementation(libs.kotlinx.coroutines.android)
-
-    // DI
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-
-    // Serialization
-    implementation(libs.kotlinx.serialization.json)
-
-    // Testing
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-
-    // Debug
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    libs {
+        implementation(androidx.core.ktx)
+        implementation(androidx.lifecycle.runtime.ktx)
+        implementation(androidx.lifecycle.viewmodel.ktx)
+        implementation(androidx.navigation.compose)
+        implementation(kotlinx.serialization.json)
+        implementation(coil.compose)
+        implementation(coil.network.okhttp)
+        implementation(coil.svg)
+        testImplementation(junit)
+        testImplementation(kotlinx.coroutines.test)
+        androidTestImplementation(androidx.test.ext.junit)
+        androidTestImplementation(androidx.test.espresso.core)
+    }
 }
