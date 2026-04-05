@@ -20,3 +20,9 @@ subprojects {
         }
     }
 }
+
+tasks.register<Exec>("installGitHooks") {
+    group = "setup"
+    description = "Sets git core.hooksPath to .githooks (run once per clone)"
+    commandLine("git", "config", "core.hooksPath", ".githooks")
+}
