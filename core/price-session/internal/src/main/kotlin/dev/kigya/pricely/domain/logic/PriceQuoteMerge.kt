@@ -8,7 +8,10 @@ object PriceQuoteMerge {
 
     private const val PRICE_COMPARISON_EPSILON = 1e-9
 
-    fun trendFrom(previous: Double, next: Double): Trend = when {
+    fun trendFrom(
+        previous: Double,
+        next: Double,
+    ): Trend = when {
         next > previous + PRICE_COMPARISON_EPSILON -> Trend.Up
         next < previous - PRICE_COMPARISON_EPSILON -> Trend.Down
         else -> Trend.Neutral
@@ -25,22 +28,28 @@ object PriceQuoteMerge {
         return quotes + (symbol to existing.withEchoedPrice(echoedPrice, incomingSequenceNumber))
     }
 
-    private fun Quote.withEchoedPrice(echoedPrice: Double, incomingSequenceNumber: Long): Quote =
-        copy(
-            previousPrice = currentPrice,
-            currentPrice = echoedPrice,
-            trend = trendFrom(currentPrice, echoedPrice),
-            lastSequenceNumber = incomingSequenceNumber,
-        )
+    private fun Quote.withEchoedPrice(
+        echoedPrice: Double,
+        incomingSequenceNumber: Long,
+    ): Quote = copy(
+        previousPrice = currentPrice,
+        currentPrice = echoedPrice,
+        trend = trendFrom(currentPrice, echoedPrice),
+        lastSequenceNumber = incomingSequenceNumber,
+    )
 
-    fun mergeEcho(quotes: Map<String, Quote>, payload: PriceWirePayload): Map<String, Quote>? =
+    fun mergeEcho(
+        quotes: Map<String, Quote>,
+        payload: PriceWirePayload,
+    ): Map<String, Quote>? =
         mergeEcho(quotes, payload.symbol, payload.price, payload.sequenceNumber)
 
-    fun sortQuotes(quotes: Map<String, Quote>): List<Quote> =
-        quotes.values.sortedWith(
-            compareByDescending<Quote> { it.currentPrice }.thenBy { it.symbol },
-        )
+    fun sortQuotes(quotes: Map<String, Quote>): List<Quote> = quotes.values.sortedWith(
+        compareByDescending<Quote> { it.currentPrice }.thenBy { it.symbol },
+    )
 
-    fun percentChange(previousPrice: Double, currentPrice: Double): Double? =
-        QuotePriceMath.percentChange(previousPrice, currentPrice)
+    fun percentChange(
+        previousPrice: Double,
+        currentPrice: Double,
+    ): Double? = QuotePriceMath.percentChange(previousPrice, currentPrice)
 }

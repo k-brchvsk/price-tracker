@@ -1,11 +1,11 @@
 package dev.kigya.pricely.feature.feed.di
 
 import dev.kigya.pricely.feature.feed.api.FeedFeatureEntryContract
-import dev.kigya.pricely.feature.feed.internal.FeedFeatureEntry
-import dev.kigya.pricely.feature.feed.internal.FeedViewModel
 import dev.kigya.pricely.feature.feed.api.usecase.ObservePriceSessionUseCase
 import dev.kigya.pricely.feature.feed.api.usecase.StartPriceSessionUseCase
 import dev.kigya.pricely.feature.feed.api.usecase.TogglePriceFeedUseCase
+import dev.kigya.pricely.feature.feed.internal.FeedFeatureEntry
+import dev.kigya.pricely.feature.feed.internal.FeedViewModel
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf

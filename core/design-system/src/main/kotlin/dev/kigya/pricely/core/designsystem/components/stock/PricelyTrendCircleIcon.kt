@@ -29,6 +29,7 @@ enum class PricelyTrendCircleStyle {
 enum class PricelyTrendCircleVariant {
     /** Solid trend color + white glyph. */
     SOLID,
+
     /** Soft fill + trend-colored glyph (e.g. feed list). */
     SOFT_BORDERED,
 }
@@ -52,19 +53,19 @@ fun PricelyTrendCircleIcon(
         PricelyTrendCircleStyle.DIAGONAL_ARROWS -> when (trend) {
             PricelyTrend.UP -> Icons.Filled.NorthEast
             PricelyTrend.DOWN -> Icons.Filled.SouthEast
-            PricelyTrend.NEUTRAL -> error("neutral")
+            PricelyTrend.NEUTRAL -> error(NEUTRAL_TREND_BRANCH)
         }
         PricelyTrendCircleStyle.VERTICAL_ARROWS -> when (trend) {
             PricelyTrend.UP -> Icons.Filled.ArrowUpward
             PricelyTrend.DOWN -> Icons.Filled.ArrowDownward
-            PricelyTrend.NEUTRAL -> error("neutral")
+            PricelyTrend.NEUTRAL -> error(NEUTRAL_TREND_BRANCH)
         }
     }
     val description = stringResource(
         when (trend) {
             PricelyTrend.UP -> R.string.design_system_cd_trend_up
             PricelyTrend.DOWN -> R.string.design_system_cd_trend_down
-            PricelyTrend.NEUTRAL -> error("neutral")
+            PricelyTrend.NEUTRAL -> error(NEUTRAL_TREND_BRANCH)
         },
     )
     val boxModifier = when (variant) {
@@ -95,3 +96,5 @@ fun PricelyTrendCircleIcon(
         )
     }
 }
+
+private const val NEUTRAL_TREND_BRANCH = "neutral"

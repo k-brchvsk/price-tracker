@@ -16,5 +16,6 @@ dependencies {
     libs {
         implementation(gradle.android)
         implementation(gradle.kotlin)
+        implementation(gradle.detekt)
     }
 }

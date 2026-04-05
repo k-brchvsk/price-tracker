@@ -33,14 +33,13 @@ fun PricelyFlashingPriceText(
         lastPriceSeen = text
         if (!priceChanged) return@LaunchedEffect
         when (trend) {
-            PricelyTrend.UP, PricelyTrend.DOWN -> {
+            PricelyTrend.UP, PricelyTrend.DOWN ->
                 try {
                     flashTrend = trend
                     delay(PRICE_FLASH_DURATION)
                 } finally {
                     flashTrend = null
                 }
-            }
 
             PricelyTrend.NEUTRAL -> Unit
         }

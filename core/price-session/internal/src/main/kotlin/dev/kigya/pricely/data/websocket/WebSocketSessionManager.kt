@@ -33,7 +33,10 @@ class WebSocketSessionManager(
     private var eventListener: EventListener? = null
 
     private val wsListener = object : WebSocketListener() {
-        override fun onOpen(webSocket: WebSocket, response: Response) {
+        override fun onOpen(
+            webSocket: WebSocket,
+            response: Response,
+        ) {
             scope.launch {
                 mutex.withLock {
                     if (socket !== webSocket) return@launch
@@ -45,22 +48,37 @@ class WebSocketSessionManager(
             }
         }
 
-        override fun onMessage(webSocket: WebSocket, text: String) {
+        override fun onMessage(
+            webSocket: WebSocket,
+            text: String,
+        ) {
             scope.launch {
                 val isCurrent = mutex.withLock { socket === webSocket }
                 if (isCurrent) eventListener?.onMessage(text)
             }
         }
 
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+        override fun onClosing(
+            webSocket: WebSocket,
+            code: Int,
+            reason: String,
+        ) {
             webSocket.close(NORMAL_CLOSE_CODE, reason)
         }
 
-        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+        override fun onClosed(
+            webSocket: WebSocket,
+            code: Int,
+            reason: String,
+        ) {
             scope.launch { handleSocketDown(webSocket, isFailure = false) }
         }
 
-        override fun onFailure(webSocket: WebSocket, throwable: Throwable, response: Response?) {
+        override fun onFailure(
+            webSocket: WebSocket,
+            throwable: Throwable,
+            response: Response?,
+        ) {
             scope.launch { handleSocketDown(webSocket, isFailure = true) }
         }
     }
@@ -108,7 +126,10 @@ class WebSocketSessionManager(
         return webSocket.send(text)
     }
 
-    private suspend fun handleSocketDown(closedSocket: WebSocket, isFailure: Boolean) {
+    private suspend fun handleSocketDown(
+        closedSocket: WebSocket,
+        isFailure: Boolean,
+    ) {
         mutex.withLock {
             if (socket !== closedSocket) return
             socket = null
@@ -133,11 +154,9 @@ class WebSocketSessionManager(
             }
         }
     }
-
-    private companion object {
-        const val NORMAL_CLOSE_CODE = 1000
-        const val BASE_RECONNECT_DELAY_MS = 1_000.0
-        const val BACKOFF_MULTIPLIER = 2.0
-        const val MAX_RECONNECT_EXPONENT = 5
-    }
 }
+
+private const val NORMAL_CLOSE_CODE = 1000
+private const val BASE_RECONNECT_DELAY_MS = 1_000.0
+private const val BACKOFF_MULTIPLIER = 2.0
+private const val MAX_RECONNECT_EXPONENT = 5

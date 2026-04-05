@@ -53,16 +53,6 @@ class PriceTicker(
     }
 
     companion object {
-        private const val TICK_INTERVAL_MS = 2_000L
-        private const val SYMBOLS_PER_TICK = 5
-        private const val MAX_JITTER_FRACTION = 0.07
-        private const val MIN_PRICE = 0.01
-        private val CRYPTO_TICKERS = setOf("BTC", "ETH", "SOL")
-        private const val CRYPTO_MIN = 50_000.0
-        private const val CRYPTO_MAX = 120_000.0
-        private const val STOCK_MIN = 30.0
-        private const val STOCK_MAX = 500.0
-
         fun seedQuotes(): Map<String, Quote> {
             val random = Random(System.nanoTime())
             return SymbolCatalog.entries.associate { catalogEntry ->
@@ -82,3 +72,13 @@ class PriceTicker(
         }
     }
 }
+
+private const val TICK_INTERVAL_MS = 2_000L
+private const val SYMBOLS_PER_TICK = 5
+private const val MAX_JITTER_FRACTION = 0.07
+private const val MIN_PRICE = 0.01
+private val CRYPTO_TICKERS = setOf("BTC", "ETH", "SOL")
+private const val CRYPTO_MIN = 50_000.0
+private const val CRYPTO_MAX = 120_000.0
+private const val STOCK_MIN = 30.0
+private const val STOCK_MAX = 500.0

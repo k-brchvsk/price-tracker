@@ -36,12 +36,14 @@ fun PricelyActionButton(
     val backgroundColor = when (state) {
         PricelyActionState.CONNECTED -> colors.actionButtonConnectedBackground
         PricelyActionState.DISCONNECTED,
-        PricelyActionState.LOADING -> colors.actionButtonDisconnectedBackground
+        PricelyActionState.LOADING,
+        -> colors.actionButtonDisconnectedBackground
     }
     val iconColor = when (state) {
         PricelyActionState.CONNECTED -> colors.actionButtonIconConnected
         PricelyActionState.DISCONNECTED,
-        PricelyActionState.LOADING -> colors.actionButtonIconDisconnected
+        PricelyActionState.LOADING,
+        -> colors.actionButtonIconDisconnected
     }
 
     Box(

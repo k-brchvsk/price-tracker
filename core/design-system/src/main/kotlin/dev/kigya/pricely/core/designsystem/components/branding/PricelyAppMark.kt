@@ -17,9 +17,7 @@ import dev.kigya.pricely.core.designsystem.shape.LocalShapes
 import dev.kigya.pricely.core.designsystem.theme.AppTheme
 
 @Composable
-fun PricelyAppMark(
-    modifier: Modifier = Modifier,
-) {
+fun PricelyAppMark(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         shape = LocalShapes.current.small,

@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import dev.kigya.pricely.feature.symboldetails.api.usecase.ObservePriceSessionUseCase
 import dev.kigya.pricely.feature.symboldetails.api.SymbolDetailsRoute
+import dev.kigya.pricely.feature.symboldetails.api.usecase.ObservePriceSessionUseCase
 import dev.kigya.pricely.feature.symboldetails.internal.mapper.toInitialSymbolDetailsUiState
 import dev.kigya.pricely.feature.symboldetails.internal.mapper.toSymbolDetailsUiState
 import dev.kigya.pricely.feature.symboldetails.internal.model.SymbolDetailsUiState

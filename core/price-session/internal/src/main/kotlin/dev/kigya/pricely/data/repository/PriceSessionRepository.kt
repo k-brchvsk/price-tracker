@@ -38,7 +38,8 @@ class PriceSessionRepository(
             object : WebSocketSessionManager.EventListener {
                 override suspend fun onConnected() = handleConnected()
                 override suspend fun onMessage(text: String) = handleEcho(text)
-                override suspend fun onDisconnected(isFailure: Boolean) = handleDisconnected(isFailure)
+                override suspend fun onDisconnected(isFailure: Boolean) =
+                    handleDisconnected(isFailure)
             },
         )
     }
@@ -149,8 +150,6 @@ class PriceSessionRepository(
             )
         }
     }
-
-    private companion object {
-        const val WS_URL = "wss://ws.postman-echo.com/raw"
-    }
 }
+
+private const val WS_URL = "wss://ws.postman-echo.com/raw"

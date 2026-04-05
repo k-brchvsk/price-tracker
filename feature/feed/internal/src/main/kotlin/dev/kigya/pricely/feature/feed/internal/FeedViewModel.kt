@@ -23,11 +23,11 @@ class FeedViewModel(
         .map { it.toFeedUiState() }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L),
+            started = SharingStarted.WhileSubscribed(SUBSCRIPTION_STOP_TIMEOUT_MS),
             initialValue = FeedUiState.Loading,
         )
 
-    fun onToggleFeedClicked() {
+    fun onToggleFeedClick() {
         togglePriceFeed()
     }
 
@@ -35,3 +35,5 @@ class FeedViewModel(
         navigator.navigateTo(SymbolDetailsRoute(symbol = symbol))
     }
 }
+
+private const val SUBSCRIPTION_STOP_TIMEOUT_MS = 5_000L

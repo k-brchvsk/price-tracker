@@ -17,6 +17,8 @@ import org.koin.dsl.module
 import org.koin.dsl.onClose
 import java.util.concurrent.TimeUnit
 
+private const val OKHTTP_PING_INTERVAL_SECONDS = 30L
+
 val priceSessionModule = module {
     singleOf(::createOkHttpClient)
     val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -31,7 +33,6 @@ val priceSessionModule = module {
     }.onClose { appScope.cancel() }
 }
 
-private fun createOkHttpClient(): OkHttpClient =
-    OkHttpClient.Builder()
-        .pingInterval(30, TimeUnit.SECONDS)
-        .build()
+private fun createOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+    .pingInterval(OKHTTP_PING_INTERVAL_SECONDS, TimeUnit.SECONDS)
+    .build()

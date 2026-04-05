@@ -7,6 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.jvm")
 }
 
+pluginManager.apply("pricely.config.detekt")
+
 extensions.configure<JavaPluginExtension> {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(project.versionInt("java")))

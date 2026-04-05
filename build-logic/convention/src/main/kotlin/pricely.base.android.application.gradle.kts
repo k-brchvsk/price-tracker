@@ -9,6 +9,8 @@ plugins {
     id("com.android.application")
 }
 
+pluginManager.apply("pricely.config.detekt")
+
 extensions.configure<ApplicationExtension> {
     namespace = project.androidNamespace()
     compileSdk = project.versionInt("compileSdk")

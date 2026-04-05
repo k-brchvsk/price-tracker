@@ -17,10 +17,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -29,16 +27,16 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.filled.SwapVert
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,7 +50,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.kigya.pricely.core.designsystem.components.branding.PricelyAppMark
 import dev.kigya.pricely.core.designsystem.components.button.PricelyActionButton
-import dev.kigya.pricely.core.designsystem.components.description.PricelyDescriptionCard
 import dev.kigya.pricely.core.designsystem.components.icon.PricelySymbolIcon
 import dev.kigya.pricely.core.designsystem.components.status.PricelyConnectionStatus
 import dev.kigya.pricely.core.designsystem.components.stock.PricelyTrend
@@ -60,26 +57,24 @@ import dev.kigya.pricely.core.designsystem.components.stock.PricelyTrendCircleIc
 import dev.kigya.pricely.core.designsystem.components.stock.PricelyTrendCircleStyle
 import dev.kigya.pricely.core.designsystem.components.stock.PricelyTrendCircleVariant
 import dev.kigya.pricely.core.designsystem.components.text.PricelyText
-import dev.kigya.pricely.core.designsystem.R as DesignSystemR
 import dev.kigya.pricely.core.designsystem.theme.AppTheme
+import dev.kigya.pricely.domain.model.Trend
 import dev.kigya.pricely.feature.feed.internal.mapper.toPricelyActionState
 import dev.kigya.pricely.feature.feed.internal.mapper.toPricelyConnectionState
 import dev.kigya.pricely.feature.feed.internal.mapper.toPricelyTrend
-import dev.kigya.pricely.domain.model.Trend
 import dev.kigya.pricely.feature.feed.internal.model.FeedUiState
 import dev.kigya.pricely.feature.feed.internal.model.QuoteUiModel
 import dev.kigya.pricely.util.compose.PricelyFlashingPriceText
 import org.koin.androidx.compose.koinViewModel
+import dev.kigya.pricely.core.designsystem.R as DesignSystemR
 
 @Composable
-fun FeedScreen(
-    viewModel: FeedViewModel = koinViewModel(),
-) {
+fun FeedScreen(viewModel: FeedViewModel = koinViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     FeedScreenContent(
         state = state,
         onSymbolClick = viewModel::onSymbolClicked,
-        onToggleFeedClicked = viewModel::onToggleFeedClicked,
+        onToggleFeedClick = viewModel::onToggleFeedClick,
     )
 }
 
@@ -87,7 +82,7 @@ fun FeedScreen(
 private fun FeedScreenContent(
     state: FeedUiState,
     onSymbolClick: (String) -> Unit,
-    onToggleFeedClicked: () -> Unit,
+    onToggleFeedClick: () -> Unit,
 ) {
     val cachedQuotes = remember { mutableStateListOf<QuoteUiModel>() }
     var showErrorOverlay by remember { mutableStateOf(false) }
@@ -143,7 +138,7 @@ private fun FeedScreenContent(
     ) {
         FeedTopBar(
             state = state,
-            onToggleFeedClicked = onToggleFeedClicked,
+            onToggleFeedClick = onToggleFeedClick,
         )
 
         Box(modifier = Modifier.fillMaxSize()) {
@@ -188,7 +183,7 @@ private fun FeedScreenContent(
                 }
 
                 when {
-                    state is FeedUiState.Loading -> {
+                    state is FeedUiState.Loading ->
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -202,9 +197,8 @@ private fun FeedScreenContent(
                                 strokeWidth = AppTheme.dimens.loadingIndicatorStroke,
                             )
                         }
-                    }
 
-                    state is FeedUiState.Error && showErrorOverlay -> {
+                    state is FeedUiState.Error && showErrorOverlay ->
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -213,11 +207,10 @@ private fun FeedScreenContent(
                         ) {
                             FeedErrorState()
                         }
-                    }
                 }
             } else {
                 when (state) {
-                    FeedUiState.Loading -> {
+                    FeedUiState.Loading ->
                         Column(modifier = Modifier.fillMaxSize()) {
                             PricelyText(
                                 text = stringResource(R.string.feed_column_symbol),
@@ -241,16 +234,14 @@ private fun FeedScreenContent(
                                 )
                             }
                         }
-                    }
 
-                    FeedUiState.Error -> {
+                    FeedUiState.Error ->
                         Box(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center,
                         ) {
                             FeedErrorState()
                         }
-                    }
 
                     is FeedUiState.Content -> Unit
                 }
@@ -265,15 +256,17 @@ private fun LazyListState.isAtAbsoluteTop(): Boolean =
 @Composable
 private fun FeedTopBar(
     state: FeedUiState,
-    onToggleFeedClicked: () -> Unit,
+    onToggleFeedClick: () -> Unit,
 ) {
     val toggleFeedContentDescription = stringResource(
-        when (state) {
-            is FeedUiState.Content ->
-                if (state.isConnected) R.string.feed_cd_pause_price_feed
-                else R.string.feed_cd_start_price_feed
-
-            else -> R.string.feed_cd_start_price_feed
+        if (state is FeedUiState.Content) {
+            if (state.isConnected) {
+                R.string.feed_cd_pause_price_feed
+            } else {
+                R.string.feed_cd_start_price_feed
+            }
+        } else {
+            R.string.feed_cd_start_price_feed
         },
     )
     Row(
@@ -307,8 +300,11 @@ private fun FeedTopBar(
                     FeedUiState.Loading -> R.string.feed_connection_status_loading
                     FeedUiState.Error -> R.string.feed_connection_status_disconnected
                     is FeedUiState.Content ->
-                        if (state.isConnected) R.string.feed_connection_status_connected
-                        else R.string.feed_connection_status_disconnected
+                        if (state.isConnected) {
+                            R.string.feed_connection_status_connected
+                        } else {
+                            R.string.feed_connection_status_disconnected
+                        }
                 },
                 state = state.toPricelyConnectionState(),
                 labelColorOverride = if (state is FeedUiState.Error) {
@@ -319,14 +315,17 @@ private fun FeedTopBar(
             )
             PricelyActionButton(
                 state = state.toPricelyActionState(),
-                icon = when (state) {
-                    is FeedUiState.Content ->
-                        if (state.isConnected) Icons.Filled.Sync else Icons.Filled.SwapVert
-
-                    else -> Icons.Filled.SwapVert
+                icon = if (state is FeedUiState.Content) {
+                    if (state.isConnected) {
+                        Icons.Filled.Sync
+                    } else {
+                        Icons.Filled.SwapVert
+                    }
+                } else {
+                    Icons.Filled.SwapVert
                 },
                 contentDescription = toggleFeedContentDescription,
-                onClick = onToggleFeedClicked,
+                onClick = onToggleFeedClick,
             )
         }
     }
@@ -358,7 +357,7 @@ private fun FeedQuoteRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .alpha(if (isMuted) 0.72f else 1f)
+            .alpha(if (isMuted) QUOTE_ROW_MUTED_ALPHA else 1f)
             .clickable(onClick = onClick)
             .padding(
                 horizontal = AppTheme.dimens.space16,
@@ -436,46 +435,50 @@ private fun FeedQuoteTrendIcon(
                 enter = when (domainTrend) {
                     Trend.Up ->
                         slideInHorizontally(
-                            animationSpec = tween(360, easing = FastOutSlowInEasing),
+                            animationSpec = tween(TREND_SLIDE_IN_DURATION_MS, easing = FastOutSlowInEasing),
                             initialOffsetX = { full -> full },
                         ) +
                             fadeIn(
                                 animationSpec = tween(
-                                    durationMillis = 280,
-                                    delayMillis = 48,
+                                    durationMillis = TREND_FADE_IN_DURATION_MS,
+                                    delayMillis = TREND_FADE_IN_DELAY_MS,
                                     easing = FastOutSlowInEasing,
                                 ),
                             )
                     Trend.Down ->
                         slideInHorizontally(
-                            animationSpec = tween(360, easing = FastOutSlowInEasing),
+                            animationSpec = tween(TREND_SLIDE_IN_DURATION_MS, easing = FastOutSlowInEasing),
                             initialOffsetX = { full -> -full },
                         ) +
                             fadeIn(
                                 animationSpec = tween(
-                                    durationMillis = 280,
-                                    delayMillis = 48,
+                                    durationMillis = TREND_FADE_IN_DURATION_MS,
+                                    delayMillis = TREND_FADE_IN_DELAY_MS,
                                     easing = FastOutSlowInEasing,
                                 ),
                             )
                     Trend.Neutral ->
-                        fadeIn(animationSpec = tween(1))
+                        fadeIn(animationSpec = tween(TREND_NEUTRAL_ENTER_DURATION_MS))
                 },
                 exit = when (domainTrend) {
                     Trend.Up ->
                         slideOutHorizontally(
-                            animationSpec = tween(220, easing = FastOutLinearInEasing),
+                            animationSpec = tween(TREND_SLIDE_OUT_DURATION_MS, easing = FastOutLinearInEasing),
                             targetOffsetX = { full -> full },
                         ) +
-                            fadeOut(animationSpec = tween(180, easing = FastOutLinearInEasing))
+                            fadeOut(
+                                animationSpec = tween(TREND_FADE_OUT_DURATION_MS, easing = FastOutLinearInEasing),
+                            )
                     Trend.Down ->
                         slideOutHorizontally(
-                            animationSpec = tween(220, easing = FastOutLinearInEasing),
+                            animationSpec = tween(TREND_SLIDE_OUT_DURATION_MS, easing = FastOutLinearInEasing),
                             targetOffsetX = { full -> -full },
                         ) +
-                            fadeOut(animationSpec = tween(180, easing = FastOutLinearInEasing))
+                            fadeOut(
+                                animationSpec = tween(TREND_FADE_OUT_DURATION_MS, easing = FastOutLinearInEasing),
+                            )
                     Trend.Neutral ->
-                        fadeOut(animationSpec = tween(160))
+                        fadeOut(animationSpec = tween(TREND_NEUTRAL_EXIT_DURATION_MS))
                 },
             ) {
                 PricelyTrendCircleIcon(
@@ -521,3 +524,12 @@ private fun FeedErrorState() {
         }
     }
 }
+
+private const val QUOTE_ROW_MUTED_ALPHA = 0.72f
+private const val TREND_SLIDE_IN_DURATION_MS = 360
+private const val TREND_FADE_IN_DURATION_MS = 280
+private const val TREND_FADE_IN_DELAY_MS = 48
+private const val TREND_SLIDE_OUT_DURATION_MS = 220
+private const val TREND_FADE_OUT_DURATION_MS = 180
+private const val TREND_NEUTRAL_ENTER_DURATION_MS = 1
+private const val TREND_NEUTRAL_EXIT_DURATION_MS = 160

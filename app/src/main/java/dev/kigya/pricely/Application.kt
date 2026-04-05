@@ -21,6 +21,7 @@ class Application : Application(), SingletonImageLoader.Factory {
         }
     }
 
+    @Suppress("ExpressionBodySyntax")
     override fun newImageLoader(context: Context): ImageLoader {
         return ImageLoader.Builder(context)
             .components {
