@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="design_system_placeholder_em_dash">—</string>
+    <string name="design_system_cd_trend_up">Trend up</string>
+    <string name="design_system_cd_trend_down">Trend down</string>
+    <string name="design_system_cd_app_logo">Pricely logo</string>
+    <string name="design_system_cd_symbol_logo">Company logo for %1$s</string>
+    <string name="design_system_cd_action_button">Action</string>
+</resources>

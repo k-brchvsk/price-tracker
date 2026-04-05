@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feed_brand_title">Pricely</string>
+    <string name="feed_column_symbol">Symbol</string>
+    <string name="feed_connection_status_connected">Connected</string>
+    <string name="feed_connection_status_disconnected">Disconnected</string>
+    <string name="feed_connection_status_loading">Loading…</string>
+    <string name="feed_error_title">Connection interrupted</string>
+    <string name="feed_error_description">We couldn\'t connect to get the latest prices. Try again in a moment.</string>
+    <string name="feed_cd_pause_price_feed">Pause price feed</string>
+    <string name="feed_cd_start_price_feed">Start price feed</string>
+    <string name="feed_cd_error_state_icon">Reconnect to price feed</string>
+</resources>
