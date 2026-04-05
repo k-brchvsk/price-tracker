@@ -31,10 +31,29 @@ The screenshots below were captured from verified local `debug` and obfuscated `
   <img src="docs/media/pricely-release-main-screen.png" alt="Pricely release build main screen" width="260" />
 </p>
 
-Demo videos:
+### Key User Flows
+These inline previews were generated from the original screen recordings from Desktop that capture the main product scenarios.
 
-- [Debug build demo](docs/media/pricely-debug-demo.mp4)
-- [Release build demo](docs/media/pricely-release-demo.mp4)
+#### Main Flow
+<p align="center">
+  <img src="docs/media/main-flow.gif" alt="Pricely main flow demo" width="320" />
+</p>
+
+Source video: [main-flow.webm](docs/media/main-flow.webm)
+
+#### Rotation
+<p align="center">
+  <img src="docs/media/rotation.gif" alt="Pricely rotation demo" width="320" />
+</p>
+
+Source video: [rotation.webm](docs/media/rotation.webm)
+
+#### Theming
+<p align="center">
+  <img src="docs/media/theming.gif" alt="Pricely theming demo" width="320" />
+</p>
+
+Source video: [theming.webm](docs/media/theming.webm)
 
 ### Build Variants
 - `debug`: development build for fast iteration and local debugging
@@ -48,6 +67,10 @@ The Figma for Pricely was created by me personally, and that is an intentional p
 - Figma file: [Pricely design](https://www.figma.com/design/A3YhGKJXhtp9o6GwYkOVuy/Pricely?node-id=4-5&t=7OfgDDvOHUFSIZiy-1)
 - Brand mark used in the app and in this README is derived from the real project design-system asset
 
+<p align="center">
+  <img src="docs/media/figma-screens.png" alt="Pricely Figma screens" width="700" />
+</p>
+
 ## Environment
 The project is set up for the following local environment:
 
@@ -58,12 +81,6 @@ The project is set up for the following local environment:
 - compileSdk: `36`
 - targetSdk: `36`
 - minSdk: `24`
-
-Environment reference:
-
-<p align="center">
-  <img src="docs/media/android-studio-panda-2-2025-3-2.png" alt="Android Studio Panda 2 2025.3.2" width="360" />
-</p>
 
 ## Architecture
 The repository is organized around feature modules and shared core modules instead of a single monolith.
