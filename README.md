@@ -42,9 +42,6 @@ These inline previews were generated from the original screen recordings from De
 Source video: [main-flow.webm](docs/media/main-flow.webm)
 
 #### Rotation
-<p align="center">
-  <img src="docs/media/rotation.gif" alt="Pricely rotation demo" width="320" />
-</p>
 
 Source video: [rotation.webm](docs/media/rotation.webm)
 
