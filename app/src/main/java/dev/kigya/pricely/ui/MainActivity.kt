@@ -1,4 +1,4 @@
-package dev.kigya.pricely.ui.main
+package dev.kigya.pricely.ui
 
 import android.content.Intent
 import android.os.Bundle

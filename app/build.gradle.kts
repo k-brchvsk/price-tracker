@@ -22,6 +22,7 @@ dependencies {
         implementation(feature.symbolDetails.api)
         implementation(feature.symbolDetails.di)
         implementation(navigation.api)
+        implementation(navigation.internal)
     }
 
     libs {

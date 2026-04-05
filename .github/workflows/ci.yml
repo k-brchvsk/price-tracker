@@ -1,0 +1,19 @@
+name: Pricely Pipelines
+
+on:
+  pull_request:
+    branches: [ trunk ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detekt:
+    name: detekt
+    if: ${{ true }}
+    uses: ./.github/workflows/_detekt.yml

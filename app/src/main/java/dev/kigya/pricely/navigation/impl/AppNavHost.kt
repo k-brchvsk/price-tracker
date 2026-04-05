@@ -9,6 +9,7 @@ import dev.kigya.pricely.feature.feed.api.FeedFeatureEntryContract
 import dev.kigya.pricely.feature.feed.api.FeedRoute
 import dev.kigya.pricely.feature.symboldetails.api.SymbolDetailsFeatureEntryContract
 import dev.kigya.pricely.navigation.api.NavigationRoute
+import dev.kigya.pricely.navigation.internal.AppNavigator
 import org.koin.compose.koinInject
 
 @Composable

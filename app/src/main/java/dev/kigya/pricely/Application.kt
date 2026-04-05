@@ -1,16 +1,12 @@
 package dev.kigya.pricely
 
 import android.app.Application
-import android.content.Context
-import coil3.ImageLoader
-import coil3.SingletonImageLoader
-import coil3.request.crossfade
-import coil3.svg.SvgDecoder
 import dev.kigya.pricely.di.appModules
+import dev.kigya.pricely.di.installSingletonImageLoaderFromKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class Application : Application(), SingletonImageLoader.Factory {
+class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,15 +15,7 @@ class Application : Application(), SingletonImageLoader.Factory {
             androidContext(this@Application)
             modules(appModules)
         }
-    }
 
-    @Suppress("ExpressionBodySyntax")
-    override fun newImageLoader(context: Context): ImageLoader {
-        return ImageLoader.Builder(context)
-            .components {
-                add(SvgDecoder.Factory())
-            }
-            .crossfade(true)
-            .build()
+        installSingletonImageLoaderFromKoin()
     }
 }

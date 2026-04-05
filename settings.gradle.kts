@@ -37,6 +37,7 @@ includeBuild("build-logic")
 includeAll(
     ":app",
     ":navigation:api",
+    ":navigation:internal",
     ":core:design-system",
     ":core:price-session:api",
     ":core:price-session:internal",

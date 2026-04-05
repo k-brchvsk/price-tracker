@@ -1,4 +1,4 @@
-package dev.kigya.pricely.navigation.impl
+package dev.kigya.pricely.navigation.internal
 
 import androidx.navigation.NavHostController
 import dev.kigya.pricely.navigation.api.NavigationRoute
