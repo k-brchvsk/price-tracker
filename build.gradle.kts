@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.kover)
 }
 
 tasks.register("detekt") {
@@ -17,6 +18,13 @@ subprojects {
     afterEvaluate {
         if (pluginManager.hasPlugin("io.gitlab.arturbosch.detekt")) {
             rootProject.tasks.named("detekt").configure { dependsOn(tasks.named("detekt")) }
+        }
+        if (pluginManager.hasPlugin("org.jetbrains.kotlin.android") ||
+            pluginManager.hasPlugin("org.jetbrains.kotlin.jvm")
+        ) {
+            if (!pluginManager.hasPlugin("org.jetbrains.kotlinx.kover")) {
+                pluginManager.apply("org.jetbrains.kotlinx.kover")
+            }
         }
     }
 }

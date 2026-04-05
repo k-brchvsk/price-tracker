@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import dev.kigya.pricely.core.designsystem.R
 import dev.kigya.pricely.core.designsystem.theme.AppTheme
@@ -51,6 +52,7 @@ fun PricelyActionButton(
             .size(AppTheme.dimens.actionButtonSize)
             .clip(CircleShape)
             .background(backgroundColor)
+            .testTag("pricely_action_button")
             .clickable(
                 enabled = state != PricelyActionState.LOADING,
                 onClick = onClick,

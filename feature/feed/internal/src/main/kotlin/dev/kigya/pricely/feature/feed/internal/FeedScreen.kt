@@ -45,6 +45,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -79,7 +80,7 @@ internal fun FeedScreen(viewModel: FeedViewModel = koinViewModel()) {
 }
 
 @Composable
-private fun FeedScreenContent(
+internal fun FeedScreenContent(
     state: FeedUiState,
     onSymbolClick: (String) -> Unit,
     onToggleFeedClick: () -> Unit,
@@ -134,7 +135,8 @@ private fun FeedScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background),
+            .background(AppTheme.colors.background)
+            .testTag("feed_screen"),
     ) {
         FeedTopBar(
             state = state,
@@ -191,7 +193,9 @@ private fun FeedScreenContent(
                             contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(AppTheme.dimens.space48),
+                                modifier = Modifier
+                                    .size(AppTheme.dimens.space48)
+                                    .testTag(FeedScreenTestTags.LoadingIndicator),
                                 color = AppTheme.colors.loadingIndicatorActive,
                                 trackColor = AppTheme.colors.loadingIndicatorTrack,
                                 strokeWidth = AppTheme.dimens.loadingIndicatorStroke,
@@ -227,7 +231,9 @@ private fun FeedScreenContent(
                                 contentAlignment = Alignment.Center,
                             ) {
                                 CircularProgressIndicator(
-                                    modifier = Modifier.size(AppTheme.dimens.space48),
+                                    modifier = Modifier
+                                        .size(AppTheme.dimens.space48)
+                                        .testTag(FeedScreenTestTags.LoadingIndicator),
                                     color = AppTheme.colors.loadingIndicatorActive,
                                     trackColor = AppTheme.colors.loadingIndicatorTrack,
                                     strokeWidth = AppTheme.dimens.loadingIndicatorStroke,
@@ -359,6 +365,7 @@ private fun FeedQuoteRow(
             .fillMaxWidth()
             .alpha(if (isMuted) QUOTE_ROW_MUTED_ALPHA else 1f)
             .clickable(onClick = onClick)
+            .testTag("feed_quote_${quote.symbol}")
             .padding(
                 horizontal = AppTheme.dimens.space16,
                 vertical = AppTheme.dimens.space12,
@@ -500,7 +507,9 @@ private fun FeedErrorState() {
         colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surface),
     ) {
         Column(
-            modifier = Modifier.padding(AppTheme.dimens.space24),
+            modifier = Modifier
+                .padding(AppTheme.dimens.space24)
+                .testTag("feed_error_card"),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space12),
         ) {
@@ -514,6 +523,7 @@ private fun FeedErrorState() {
                 text = stringResource(R.string.feed_error_title),
                 style = AppTheme.typography.headingMedium,
                 textAlign = TextAlign.Center,
+                modifier = Modifier.testTag("feed_error_title"),
             )
             PricelyText(
                 text = stringResource(R.string.feed_error_description),
@@ -523,6 +533,10 @@ private fun FeedErrorState() {
             )
         }
     }
+}
+
+private object FeedScreenTestTags {
+    const val LoadingIndicator = "feed_loading_indicator"
 }
 
 private const val QUOTE_ROW_MUTED_ALPHA = 0.72f

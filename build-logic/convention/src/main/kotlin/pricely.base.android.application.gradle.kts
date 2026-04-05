@@ -33,6 +33,14 @@ extensions.configure<ApplicationExtension> {
         }
     }
 
+    packaging {
+        resources {
+            pickFirsts += "META-INF/LICENSE.md"
+            pickFirsts += "META-INF/LICENSE-notice.md"
+            pickFirsts += "META-INF/NOTICE.md"
+        }
+    }
+
     compileOptions {
         val javaVersion = JavaVersion.toVersion(project.versionString("java"))
         sourceCompatibility = javaVersion

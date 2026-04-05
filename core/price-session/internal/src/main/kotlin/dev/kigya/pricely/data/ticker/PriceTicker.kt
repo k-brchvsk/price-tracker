@@ -16,6 +16,7 @@ import kotlin.random.Random
 internal class PriceTicker(
     private val scope: CoroutineScope,
     private val json: Json,
+    private val random: Random = Random.Default,
 ) {
     private var job: Job? = null
     private var sequenceNumber = 0L
@@ -40,12 +41,12 @@ internal class PriceTicker(
         val symbols = SymbolCatalog.entries
             .map { it.ticker }
             .filter { it in quotes }
-            .shuffled()
+            .shuffled(random)
             .take(SYMBOLS_PER_TICK)
         return symbols.mapNotNull { symbol ->
             val quote = quotes[symbol] ?: return@mapNotNull null
             sequenceNumber++
-            val jitter = Random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
+            val jitter = random.nextDouble(-MAX_JITTER_FRACTION, MAX_JITTER_FRACTION)
             val newPrice = (quote.currentPrice * (1.0 + jitter)).coerceAtLeast(MIN_PRICE)
             val payload = PriceWirePayload(symbol = symbol, price = newPrice, sequenceNumber = sequenceNumber)
             json.encodeToString(payload.toWireDto())

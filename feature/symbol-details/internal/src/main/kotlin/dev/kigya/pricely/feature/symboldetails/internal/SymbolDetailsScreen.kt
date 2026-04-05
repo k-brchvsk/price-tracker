@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,14 +55,15 @@ internal fun SymbolDetailsScreen(viewModel: SymbolDetailsViewModel = koinViewMod
 }
 
 @Composable
-private fun SymbolDetailsScreenContent(
+internal fun SymbolDetailsScreenContent(
     state: SymbolDetailsUiState,
     onBackClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background),
+            .background(AppTheme.colors.background)
+            .testTag("symbol_details_screen"),
     ) {
         DetailsTopBar(onBackClick = onBackClick)
 
@@ -96,6 +98,7 @@ private fun SymbolDetailsScreenContent(
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimens.space16),
                     ) {
                         CircularProgressIndicator(
+                            modifier = Modifier.testTag("symbol_details_loading"),
                             color = AppTheme.colors.loadingIndicatorActive,
                             trackColor = AppTheme.colors.loadingIndicatorTrack,
                             strokeWidth = AppTheme.dimens.loadingIndicatorStroke,
@@ -104,6 +107,7 @@ private fun SymbolDetailsScreenContent(
                             text = stringResource(R.string.details_loading),
                             style = AppTheme.typography.bodyMedium,
                             color = AppTheme.colors.textSecondary,
+                            modifier = Modifier.testTag("symbol_details_loading_label"),
                         )
                     }
 
@@ -135,7 +139,8 @@ private fun DetailsTopBar(onBackClick: () -> Unit) {
                     shape = LocalShapes.current.small,
                 )
                 .clip(AppTheme.shapes.small)
-                .clickable(onClick = onBackClick),
+                .clickable(onClick = onBackClick)
+                .testTag("symbol_details_back"),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -229,6 +234,7 @@ private fun SymbolDetailsPriceCard(
                 trend = state.trend.toPricelyTrend(),
                 emphasisColor = AppTheme.colors.textPrimary,
                 style = AppTheme.typography.headingMedium,
+                modifier = Modifier.testTag("symbol_details_price"),
             )
 
             if (state.shouldShowTrendIndicators) {
